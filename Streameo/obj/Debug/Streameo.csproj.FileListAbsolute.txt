@@ -1,0 +1,7 @@
+D:\Programowanie\Projekty\Streameo\Streameo\bin\Streameo.dll
+D:\Programowanie\Projekty\Streameo\Streameo\bin\Streameo.pdb
+D:\Programowanie\Projekty\Streameo\Streameo\bin\EntityFramework.dll
+D:\Programowanie\Projekty\Streameo\Streameo\bin\EntityFramework.xml
+D:\Programowanie\Projekty\Streameo\Streameo\obj\Debug\ResolveAssemblyReference.cache
+D:\Programowanie\Projekty\Streameo\Streameo\obj\Debug\Streameo.dll
+D:\Programowanie\Projekty\Streameo\Streameo\obj\Debug\Streameo.pdb
