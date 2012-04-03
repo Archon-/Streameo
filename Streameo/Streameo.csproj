@@ -69,6 +69,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Contributions.cs" />
+    <Compile Include="Models\Payments.cs" />
+    <Compile Include="Models\SongClasses.cs" />
+    <Compile Include="Models\UserClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
