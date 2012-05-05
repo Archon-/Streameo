@@ -1,71 +1,10 @@
-﻿@model Streameo.Models.Song
-@{
-    ViewBag.Title = "Index";
-}
-<link href="../../Scripts/jplayer/skin/pink.flag/jplayer.pink.flag.css" rel="stylesheet"
+﻿<link href="../../Scripts/jplayer/skin/pink.flag/jplayer.pink.flag.css" rel="stylesheet"
     type="text/css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
 <script src="../../Scripts/jplayer/jplayer.playlist.min.js" type="text/javascript"></script>
 <script src="../../Scripts/jplayer/jquery.jplayer.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        LoadMusicFile(1);
-    });
+<script src="../../Scripts/player.js" type="text/javascript"></script>
 
-    var myPlaylist;
-    var title1 = "error";
-    function LoadMusicFile(fileId, param) {
-        if (param) {
-            $.ajax(
-                {
-                    type: "POST",
-                    url: "/Player/ListenData/" + fileId,
-                    success:
-                        function (data) {
-                            var array = data.split("!TitleArtistSeparator!");
-                            myPlaylist.remove(0);
-                            myPlaylist.add({
-                                title: array[0],
-                                artist: array[1],
-                                mp3: "/Player/ListenFile/" + fileId
-                            });
-                        }
-                });
-        }
-        else {
-            $.ajax(
-                {
-                    type: "POST",
-                    url: "/Player/ListenData/" + fileId,
-                    success:
-                        function (data) {
-                            var array = data.split("!TitleArtistSeparator!");
-
-                            myPlaylist = new jPlayerPlaylist({
-                                jPlayer: "#jquery_jplayer_1",
-                                cssSelectorAncestor: "#jp_container_1"
-                            }, [
-                              {
-                                  title: array[0],
-                                  artist: array[1],
-                                  mp3: "/Player/ListenFile/" + fileId
-                              }
-                            ], {
-                                playlistOptions: {
-                                    enableRemoveControls: true
-                                },
-                                swfPath: "Swf/",
-                                supplied: "mp3"
-                            });
-                        }
-                });
-        }
-    }
-
-    
-</script>
-<a href="#" onclick="LoadMusicFile(1,true)">Tesserkatus - Ultrarozpiedalator</a><br />
-<a href="#" onclick="LoadMusicFile(2,true)">Tesserkatus - 111</a>
 <div id="jquery_jplayer_1" class="jp-jplayer">
 </div>
 <div id="jp_container_1" class="jp-audio">
@@ -79,8 +18,7 @@
                 <li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
                 <li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>
                 <li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>
-                <li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max
-                    volume</a></li>
+                <li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max volume</a></li>
             </ul>
             <div class="jp-progress">
                 <div class="jp-seek-bar">

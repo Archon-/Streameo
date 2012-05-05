@@ -20,13 +20,14 @@
             <nav>
                 <ul id="menu">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Streaming", "Index", "Streaming")</li>
-                    <li>@Html.ActionLink("Player", "Index", "Player")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                 </ul>
             </nav>
         </header>
         <section id="main">
+            <section id="player">
+                @Html.Partial("_playerPartial")
+            </section>
             @RenderBody()
         </section>
         <footer>

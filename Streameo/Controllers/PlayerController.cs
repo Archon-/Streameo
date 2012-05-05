@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using Streameo.Models;
+using NAudio.Wave;
+using System.Web.Security;
 
 namespace Streameo.Controllers
 {
@@ -14,39 +16,75 @@ namespace Streameo.Controllers
         // GET: /Player/
         DatabaseContext db = new DatabaseContext();
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult ListenFile(int id)
         {
-            List<Song> file1 = (from s in db.Songs
-                         where s.Id == id
-                         select s).ToList();
+            List<Song> song = (from s in db.Songs
+                                 where s.Id == id
+                                 select s).ToList();
             
-            string file = Server.MapPath("~/Music/" + file1.First().FilePath);
+            string file = "";
 
-            //using (var file1 = new FileStream(file, FileMode.Open))
-            //{
-            //    using (var stream = new MemoryStream())
-            //    {
-            //        byte[] buffer = new byte[32768];
-            //        int read;
-            //        while ((read = file1.Read(buffer, 0, buffer.Length)) > 0)
-            //        {
-            //            stream.Write(buffer, 0, read);
-
-            //        }
-            //        //return buffer;
-            //        //return null;
-            //        //stream.Position = 0;
-            //        //return stream.
-            //    }
-            //}
-
+            if (!User.Identity.IsAuthenticated || User.IsInRole("Normal"))
+            {
+                file = Server.MapPath("~/Music/" + song.First().FilePath);
+                string tmpFilePath = Server.MapPath("~/Music/tmp/30s/" + song.First().FilePath);
+                file = SplitMP3(file, tmpFilePath, 31);
+            }
+            else if (User.IsInRole("Premium"))
+                file = Server.MapPath("~/Music/" + song.First().FilePath);
 
             return File(file, "audio/mp3");
+        }
+
+        public static void CopyStream(Stream input, Stream output, int length)
+        {
+            // 44100
+            byte[] buffer = new byte[32768];
+            int len;
+            int total = 0;
+            input.Position = 0;
+            output.Position = 0;
+            while ((len = input.Read(buffer, 0, buffer.Length)) > 0 && total < length)
+            {
+                total += len;
+                output.Write(buffer, 0, len);
+            }
+        }
+
+        string SplitMP3(string SourcePath, string DestPath, int length)
+        {
+            int lastBackslashIndex = DestPath.LastIndexOf("\\");
+            string tmpDirPath = DestPath.Remove(lastBackslashIndex);
+            DirectoryInfo dir = new DirectoryInfo(tmpDirPath);
+
+            if (!dir.Exists)
+                dir.Create();
+
+            using (var reader = new Mp3FileReader(SourcePath))
+            {
+                try
+                {
+                    using (FileStream writer = new FileStream(DestPath, FileMode.Open))
+                    {
+                        return DestPath;
+                    }
+                }
+                catch (FileNotFoundException ex)
+                {
+                    using (FileStream writer = new FileStream(DestPath, FileMode.Create))
+                    {
+                        Mp3Frame frame;
+                        while ((frame = reader.ReadNextFrame()) != null && (int)reader.CurrentTime.TotalSeconds < length)
+                            writer.Write(frame.RawData, 0, frame.RawData.Length);
+
+                        return DestPath;
+                    }
+                }
+                catch (Exception ex)
+                { }
+
+                return "";
+            }
         }
 
         public string ListenData(int id)
