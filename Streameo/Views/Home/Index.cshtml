@@ -1,9 +1,36 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model Streameo.Models.Top
+@{
+    ViewBag.Title = "Streameo";
 }
-
-<h2>@ViewBag.Message</h2>
-<p>
-    <a href="#" onclick="LoadMusicFile(1,true)">Tesserkatus - Ultrarozpiedalator</a><br />
-    <a href="#" onclick="LoadMusicFile(2,true)">Tesserkatus - 111</a>
-</p>
+<div id="Toplists">
+    <div id="topSongs">
+        <h2 class="topTitle">
+            Top songs</h2>
+        <ul>
+            @foreach (var song in Model.Songs)
+            {
+                <li><a href="#" onclick="LoadMusicFile(@song.Id,true)">@song.Title by @song.Artist</a></li>
+            }
+        </ul>
+    </div>
+    <div id="topAlbums">
+        <h2 class="topTitle">
+            Top albums</h2>
+        <ul>
+            @foreach (var album in Model.Albums)
+            {
+                <li><a href="#">@album.Album by @album.Artist</a></li>
+            }
+        </ul>
+    </div>
+    <div id="topArtists">
+        <h2 class="topTitle">
+            Top artists</h2>
+        <ul>
+            @foreach (var artist in Model.Artists)
+            {
+                <li><a href="#">@artist.Artist</a></li>
+            }
+        </ul>
+    </div>
+</div>

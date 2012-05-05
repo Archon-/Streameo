@@ -12,8 +12,9 @@ namespace Streameo.Models
         {
             context.Songs.Add(new Song()
             {
-                Title = "Ultrazapierdalator",
+                Title = "Ultrarozpierdalator",
                 Artist = "Tesserakt",
+                Album = "The Uknown",
                 FilePath = "Tesserakt/The Uknown/01 Ultrarozpiedalator.mp3",
                 AddDate = DateTime.Now
             });
@@ -21,6 +22,7 @@ namespace Streameo.Models
             {
                 Title = "111",
                 Artist = "Tesserakt",
+                Album = "The Uknown",
                 FilePath = "Tesserakt/The Uknown/03 111.mp3",
                 AddDate = DateTime.Now
             });

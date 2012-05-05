@@ -322,3 +322,23 @@ div#title {
 .tri-state {
     width: 6em;
 }
+
+
+#Toplists {
+	margin: 0 auto;
+	width: 840px;
+	overflow: hidden;
+}
+#topSongs, #topAlbums, #topArtists  {
+	padding-bottom: 1000em;
+	margin-bottom: -999.5em;
+	display: inline;
+	float:left;
+	width: 30%;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.topTitle {
+	text-align: center;
+}

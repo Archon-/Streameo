@@ -76,8 +76,8 @@
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\Payments.cs" />
     <Compile Include="Models\SampleData.cs" />
-    <Compile Include="Models\SongClasses.cs" />
-    <Compile Include="Models\UserClasses.cs" />
+    <Compile Include="Models\Song.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
