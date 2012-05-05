@@ -26,8 +26,6 @@ namespace Streameo.Controllers
                          select s).ToList();
             
             string file = Server.MapPath("~/Music/" + file1.First().FilePath);
-            ViewBag.Artist = file1.First().Artist;
-            ViewBag.Title = file1.First().Title;
 
             //using (var file1 = new FileStream(file, FileMode.Open))
             //{

@@ -16,28 +16,6 @@
     var title1 = "error";
     function LoadMusicFile(fileId, param) {
         if (param) {
-//            new jPlayerPlaylist({
-//                jPlayer: "#jquery_jplayer_1",
-//                cssSelectorAncestor: "#jp_container_1"
-//            }, [
-//                  {
-//                      title: "111",
-//                      artist: "Tesserakt",
-//                      mp3: "/Player/Listen/" + fileId
-//                  }
-//                ], {
-//                    playlistOptions: {
-//                        enableRemoveControls: true
-//                    },
-//                    swfPath: "Swf/",
-//                    supplied: "mp3"
-//                });
-//            $("#jquery_jplayer_1").jPlayer("setMedia", {
-//                title: "Ultrazapierdalator",
-//                artist: "Tesserakt",
-//                mp3: "/Player/Listen/" + fileId
-//            });
-
             $.ajax(
                 {
                     type: "POST",
@@ -54,8 +32,8 @@
                         }
                 });
         }
-                else {
-                    $.ajax(
+        else {
+            $.ajax(
                 {
                     type: "POST",
                     url: "/Player/ListenData/" + fileId,
@@ -80,16 +58,7 @@
                                 supplied: "mp3"
                             });
                         }
-                    });
-//            $("#jquery_jplayer_1").jPlayer({
-//                ready: function () {
-//                    $(this).jPlayer("setMedia", {
-//                        mp3: "/Player/Listen/" + fileId
-//                    });
-//                },
-//                supplied: "mp3",
-//                swfPath: "Swf/"
-//            });
+                });
         }
     }
 
@@ -128,9 +97,8 @@
             <div class="jp-duration">
             </div>
             <ul class="jp-toggles">
-                <li><a href="javascript:;" class="jp-shuffle" tabindex="1" title="shuffle">shuffle</a></li>
-                <li><a href="javascript:;" class="jp-shuffle-off" tabindex="1" title="shuffle off">shuffle
-                    off</a></li>
+                @*odkomentuje się jak się zrobi playlisty*@ @*<li><a href="javascript:;" class="jp-shuffle" tabindex="1" title="shuffle">shuffle</a></li>
+                <li><a href="javascript:;" class="jp-shuffle-off" tabindex="1" title="shuffle off">shuffle off</a></li>*@
                 <li><a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat">repeat</a></li>
                 <li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off">repeat
                     off</a></li>
