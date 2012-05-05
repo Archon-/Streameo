@@ -8,13 +8,15 @@ namespace Streameo.Models
 {
     public class Song
     {
-        int Id { get; set; }
-        string Author { get; set; }
-        string Name { get; set; }
-        string Genre { get; set; }
-        User AddedBy { get; set; }
-        DateTime AddDate { get; set; }
-        int NumberOfPlays { get; set; }
-        int NumberOfComments { get; set; }
+        public int Id { get; set; }
+        public string Artist { get; set; }
+        public string Title { get; set; }
+        public string Genre { get; set; }
+        //public User AddedBy { get; set; }
+        public DateTime AddDate { get; set; }
+        public int NumberOfPlays { get; set; }
+        public int NumberOfComments { get; set; }
+        public int Rating { get; set; }
+        public string FilePath { get; set; }
     }
 }

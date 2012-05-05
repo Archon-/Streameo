@@ -1,18 +1,19 @@
-﻿@{
+﻿@model Streameo.Models.Song
+@{
     ViewBag.Title = "Index";
 }
-
-<link href="../../Scripts/jplayer/skin/pink.flag/jplayer.pink.flag.css" rel="stylesheet" type="text/css" />
+<link href="../../Scripts/jplayer/skin/pink.flag/jplayer.pink.flag.css" rel="stylesheet"
+    type="text/css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
 <script src="../../Scripts/jplayer/jplayer.playlist.min.js" type="text/javascript"></script>
 <script src="../../Scripts/jplayer/jquery.jplayer.min.js" type="text/javascript"></script>
-
 <script type="text/javascript">
     $(document).ready(function () {
         LoadMusicFile(1);
     });
 
-    myPlaylist
+    var myPlaylist;
+    var title1 = "error";
     function LoadMusicFile(fileId, param) {
         if (param) {
 //            new jPlayerPlaylist({
@@ -37,30 +38,49 @@
 //                mp3: "/Player/Listen/" + fileId
 //            });
 
-            myPlaylist.remove(0);
-            myPlaylist.add({
-                title: "Ultrazapierdalator",
-                artist: "Tesserakt",
-                mp3: "/Player/Listen/" + fileId
-            });
-        }
-        else {
-            myPlaylist = new jPlayerPlaylist({
-                jPlayer: "#jquery_jplayer_1",
-                cssSelectorAncestor: "#jp_container_1"
-            }, [
-                  {
-                      title: "111",
-                      artist: "Tesserakt",
-                      mp3: "/Player/Listen/" + fileId
-                  }
-                ], {
-                    playlistOptions: {
-                        enableRemoveControls: true
-                    },
-                    swfPath: "Swf/",
-                    supplied: "mp3"
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/Player/ListenData/" + fileId,
+                    success:
+                        function (data) {
+                            var array = data.split("!TitleArtistSeparator!");
+                            myPlaylist.remove(0);
+                            myPlaylist.add({
+                                title: array[0],
+                                artist: array[1],
+                                mp3: "/Player/ListenFile/" + fileId
+                            });
+                        }
                 });
+        }
+                else {
+                    $.ajax(
+                {
+                    type: "POST",
+                    url: "/Player/ListenData/" + fileId,
+                    success:
+                        function (data) {
+                            var array = data.split("!TitleArtistSeparator!");
+
+                            myPlaylist = new jPlayerPlaylist({
+                                jPlayer: "#jquery_jplayer_1",
+                                cssSelectorAncestor: "#jp_container_1"
+                            }, [
+                              {
+                                  title: array[0],
+                                  artist: array[1],
+                                  mp3: "/Player/ListenFile/" + fileId
+                              }
+                            ], {
+                                playlistOptions: {
+                                    enableRemoveControls: true
+                                },
+                                swfPath: "Swf/",
+                                supplied: "mp3"
+                            });
+                        }
+                    });
 //            $("#jquery_jplayer_1").jPlayer({
 //                ready: function () {
 //                    $(this).jPlayer("setMedia", {
@@ -75,51 +95,56 @@
 
     
 </script>
-    <a href="#" onclick="LoadMusicFile(1,true)">Tesserkatus - 111</a><br />
-    <a href="#" onclick="LoadMusicFile(2,true)">Tesserkatus - Ultrarozpiedalator</a>
-
-
-		<div id="jquery_jplayer_1" class="jp-jplayer"></div>
-
-		<div id="jp_container_1" class="jp-audio">
-			<div class="jp-type-playlist">
-				<div class="jp-gui jp-interface">
-					<ul class="jp-controls">
-						<li><a href="javascript:;" class="jp-previous" tabindex="1">previous</a></li>
-						<li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
-						<li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
-						<li><a href="javascript:;" class="jp-next" tabindex="1">next</a></li>
-						<li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
-						<li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>
-						<li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>
-						<li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max volume</a></li>
-					</ul>
-					<div class="jp-progress">
-						<div class="jp-seek-bar">
-							<div class="jp-play-bar"></div>
-
-						</div>
-					</div>
-					<div class="jp-volume-bar">
-						<div class="jp-volume-bar-value"></div>
-					</div>
-					<div class="jp-current-time"></div>
-					<div class="jp-duration"></div>
-					<ul class="jp-toggles">
-						<li><a href="javascript:;" class="jp-shuffle" tabindex="1" title="shuffle">shuffle</a></li>
-						<li><a href="javascript:;" class="jp-shuffle-off" tabindex="1" title="shuffle off">shuffle off</a></li>
-						<li><a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat">repeat</a></li>
-						<li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off">repeat off</a></li>
-					</ul>
-				</div>
-				<div class="jp-playlist">
-					<ul>
-						<li></li>
-					</ul>
-				</div>
-				<div class="jp-no-solution">
-					<span>Update Required</span>
-					To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-				</div>
-			</div>
-		</div>
+<a href="#" onclick="LoadMusicFile(1,true)">Tesserkatus - Ultrarozpiedalator</a><br />
+<a href="#" onclick="LoadMusicFile(2,true)">Tesserkatus - 111</a>
+<div id="jquery_jplayer_1" class="jp-jplayer">
+</div>
+<div id="jp_container_1" class="jp-audio">
+    <div class="jp-type-playlist">
+        <div class="jp-gui jp-interface">
+            <ul class="jp-controls">
+                <li><a href="javascript:;" class="jp-previous" tabindex="1">previous</a></li>
+                <li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
+                <li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
+                <li><a href="javascript:;" class="jp-next" tabindex="1">next</a></li>
+                <li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
+                <li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>
+                <li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>
+                <li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max
+                    volume</a></li>
+            </ul>
+            <div class="jp-progress">
+                <div class="jp-seek-bar">
+                    <div class="jp-play-bar">
+                    </div>
+                </div>
+            </div>
+            <div class="jp-volume-bar">
+                <div class="jp-volume-bar-value">
+                </div>
+            </div>
+            <div class="jp-current-time">
+            </div>
+            <div class="jp-duration">
+            </div>
+            <ul class="jp-toggles">
+                <li><a href="javascript:;" class="jp-shuffle" tabindex="1" title="shuffle">shuffle</a></li>
+                <li><a href="javascript:;" class="jp-shuffle-off" tabindex="1" title="shuffle off">shuffle
+                    off</a></li>
+                <li><a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat">repeat</a></li>
+                <li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off">repeat
+                    off</a></li>
+            </ul>
+        </div>
+        <div class="jp-playlist">
+            <ul>
+                <li></li>
+            </ul>
+        </div>
+        <div class="jp-no-solution">
+            <span>Update Required</span> To play the media you will need to either update your
+            browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/"
+                target="_blank">Flash plugin</a>.
+        </div>
+    </div>
+</div>

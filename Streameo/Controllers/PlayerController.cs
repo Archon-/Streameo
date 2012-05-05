@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
+using Streameo.Models;
 
 namespace Streameo.Controllers
 {
@@ -11,40 +12,53 @@ namespace Streameo.Controllers
     {
         //
         // GET: /Player/
+        DatabaseContext db = new DatabaseContext();
 
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Listen(int id)
+        public ActionResult ListenFile(int id)
         {
-            string file = "";
-            if (id == 1)
-                file = Server.MapPath("~/Music/Tesserakt/The Uknown/03 111.mp3");
-            else if (id == 2)
-                file = Server.MapPath("~/Music/Tesserakt/The Uknown/01 Ultrarozpiedalator.mp3");
+            List<Song> file1 = (from s in db.Songs
+                         where s.Id == id
+                         select s).ToList();
+            
+            string file = Server.MapPath("~/Music/" + file1.First().FilePath);
+            ViewBag.Artist = file1.First().Artist;
+            ViewBag.Title = file1.First().Title;
 
-            using (var file1 = new FileStream(file, FileMode.Open))
-            {
-                using (var stream = new MemoryStream())
-                {
-                    byte[] buffer = new byte[32768];
-                    int read;
-                    while ((read = file1.Read(buffer, 0, buffer.Length)) > 0)
-                    {
-                        stream.Write(buffer, 0, read);
+            //using (var file1 = new FileStream(file, FileMode.Open))
+            //{
+            //    using (var stream = new MemoryStream())
+            //    {
+            //        byte[] buffer = new byte[32768];
+            //        int read;
+            //        while ((read = file1.Read(buffer, 0, buffer.Length)) > 0)
+            //        {
+            //            stream.Write(buffer, 0, read);
 
-                    }
-                    //return buffer;
-                    //return null;
-                    //stream.Position = 0;
-                    //return stream.
-                }
-            }
+            //        }
+            //        //return buffer;
+            //        //return null;
+            //        //stream.Position = 0;
+            //        //return stream.
+            //    }
+            //}
 
 
             return File(file, "audio/mp3");
+        }
+
+        public string ListenData(int id)
+        {
+            var song = (from s in db.Songs
+                           where s.Id == id
+                          select s).ToList();
+            string songData = song.First().Title + "!TitleArtistSeparator!" + song.First().Artist;
+
+            return songData;
         }
 
         //
@@ -61,7 +75,7 @@ namespace Streameo.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /Player/Create
@@ -80,10 +94,10 @@ namespace Streameo.Controllers
                 return View();
             }
         }
-        
+
         //
         // GET: /Player/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             return View();
@@ -98,7 +112,7 @@ namespace Streameo.Controllers
             try
             {
                 // TODO: Add update logic here
- 
+
                 return RedirectToAction("Index");
             }
             catch
@@ -109,7 +123,7 @@ namespace Streameo.Controllers
 
         //
         // GET: /Player/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             return View();
@@ -124,7 +138,7 @@ namespace Streameo.Controllers
             try
             {
                 // TODO: Add delete logic here
- 
+
                 return RedirectToAction("Index");
             }
             catch
