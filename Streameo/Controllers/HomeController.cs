@@ -15,13 +15,13 @@ namespace Streameo.Controllers
         {
             List<Song> songs = (from s in db.Songs
                                 orderby s.Rating descending
-                                select s).ToList();
+                                select s).Take(10).ToList();
 
             List<Song> albums = (from s in songs
-                                 select s).Distinct(new DistinctAlbum()).ToList();
+                                 select s).Distinct(new DistinctAlbum()).Take(10).ToList();
 
             List<Song> artists = (from s in songs
-                                  select s).Distinct(new DistinctArtist()).ToList();
+                                  select s).Distinct(new DistinctArtist()).Take(10).ToList();
 
             return View(new Top() 
             {
