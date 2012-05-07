@@ -8,11 +8,13 @@ namespace Streameo.Models
 {
     public class User
     {
-        int Id { get; set; }
-        string Name { get; set; }
-        int SongsAdded { get; set; }
-        int TimeOfListening { get; set; }
-        bool PremiumStatus { get; set; }
-        DateTime RegistrationDate { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Pass { get; set; }
+        public int SongsAdded { get; set; }
+        public int TimeOfListening { get; set; }
+        public bool PremiumStatus { get; set; }
+        public DateTime RegistrationDate { get; set; }
     }
 }

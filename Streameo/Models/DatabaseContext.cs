@@ -11,5 +11,6 @@ namespace Streameo.Models
         public DatabaseContext() : base("DatabaseContext") { }
 
         public DbSet<Song> Songs { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
