@@ -3,6 +3,7 @@
     [ @Html.ActionLink("Wyloguj", "LogOff", "Account") ]</text>
 }
 else {
+    @:[ @Html.ActionLink("Rejestracja", "Register", "Auth") ]
     @:[ @Html.ActionLink("Zaloguj", "Login", "Auth") ]
     @:[ @Html.ActionLink("Zaloguj przez Facebooka", "Facebook", "Auth") ]
 }

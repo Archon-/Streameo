@@ -47,7 +47,7 @@ namespace Streameo.Controllers
             {
                 FormsAuthentication.SetAuthCookie(email, false);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             return View();
@@ -105,13 +105,11 @@ namespace Streameo.Controllers
             {
                 User user = new User();
 
+                user.Name = me.name;
                 user.Email = me.email;
                 user.Pass = FormsAuthentication.HashPasswordForStoringInConfigFile("test", "SHA1");
-                user.Name = me.name;
-                user.PremiumStatus = false;
                 user.RegistrationDate = DateTime.Now;
-                user.SongsAdded = 1;
-                user.TimeOfListening = 100;
+                user.PaymentId = Guid.NewGuid().ToString("N");
 
                 if (ModelState.IsValid)
                 {
@@ -122,7 +120,7 @@ namespace Streameo.Controllers
 
             FormsAuthentication.SetAuthCookie(email, false);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
 
             //return Content(email);
         }
@@ -147,13 +145,16 @@ namespace Streameo.Controllers
         [HttpPost]
         public ActionResult Register(User user)
         {
+            user.RegistrationDate = DateTime.Now;
             user.Pass = FormsAuthentication.HashPasswordForStoringInConfigFile(user.Pass, "SHA1");
+            user.PaymentId = Guid.NewGuid().ToString("N");
             
             if (ModelState.IsValid)
             {
                 db.Users.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+
+                return RedirectToAction("Index", "Home");  
             }
 
             return View(user);
