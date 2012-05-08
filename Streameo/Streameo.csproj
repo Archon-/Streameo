@@ -74,6 +74,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -81,7 +82,9 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Contributions.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
-    <Compile Include="Models\Payments.cs" />
+    <Compile Include="Models\Dotpay.cs" />
+    <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Premium.cs" />
     <Compile Include="Models\SampleData.cs" />
     <Compile Include="Models\Song.cs" />
     <Compile Include="Models\User.cs" />

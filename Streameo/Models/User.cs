@@ -17,5 +17,40 @@ namespace Streameo.Models
         public bool? PremiumStatus { get; set; }
         public string PaymentId { get; set; }
         public DateTime RegistrationDate { get; set; }
+        public DateTime? PremiumEnd { get; set; }
+
+        public bool IsPremiumAccount()
+        {
+            if (PremiumEnd == null)
+                return false;
+            else if (PremiumEnd > DateTime.Now)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public void AddDays(int days)
+        {
+            if (PremiumEnd == null)
+            {
+                PremiumEnd = DateTime.Now;
+                PremiumEnd += new TimeSpan(days, 0, 0, 0);
+            }
+            else if (PremiumEnd > DateTime.Now)
+            {
+                PremiumEnd = DateTime.Now + new TimeSpan(days, 0, 0, 0);
+            }
+            else
+            {
+                PremiumEnd += new TimeSpan(days, 0, 0, 0);
+            }
+        }
+
+        public void DeleteDays(int days)
+        {
+            PremiumEnd = DateTime.Now - new TimeSpan(days, 0, 0, 0);
+        }
     }
 }
