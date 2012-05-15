@@ -13,12 +13,15 @@ function LoadMusicFile(fileId, param) {
                     success:
                         function (data) {
                             var array = data.split("!TitleArtistSeparator!");
-                            myPlaylist.remove(0);
-                            myPlaylist.add({
-                                title: array[0],
-                                artist: array[1],
-                                mp3: "/Player/ListenFile/" + fileId
-                            });
+
+                            myPlaylist.setPlaylist([
+                              {
+                                  title: array[0],
+                                  artist: array[1],
+                                  mp3: "/Player/ListenFile/" + fileId
+                              }
+                            ]);
+                            myPlaylist.play();
                         }
                 });
     }
@@ -42,6 +45,7 @@ function LoadMusicFile(fileId, param) {
                               }
                             ], {
                                 playlistOptions: {
+                                    autoPlay: true,
                                     enableRemoveControls: true
                                 },
                                 swfPath: "Swf/",
@@ -50,4 +54,21 @@ function LoadMusicFile(fileId, param) {
                         }
                 });
     }
+}
+
+function AddToPlaylist(fileId) {
+    $.ajax(
+                {
+                    type: "POST",
+                    url: "/Player/ListenData/" + fileId,
+                    success:
+                        function (data) {
+                            var array = data.split("!TitleArtistSeparator!");
+                            myPlaylist.add({
+                                title: array[0],
+                                artist: array[1],
+                                mp3: "/Player/ListenFile/" + fileId
+                            });
+                        }
+                });
 }

@@ -9,7 +9,10 @@
         <ul>
             @foreach (var song in Model.Songs)
             {
-                <li><a href="#" onclick="LoadMusicFile(@song.Id,true)">@song.Title by @song.Artist</a></li>
+                <li>
+                <a href="#" onclick="LoadMusicFile(@song.Id,true)">@song.Title by @song.Artist</a>
+                <a href="#" onclick="AddToPlaylist(@song.Id)">+</a>
+                </li>
             }
         </ul>
     </div>
