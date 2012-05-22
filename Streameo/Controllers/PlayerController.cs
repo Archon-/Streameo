@@ -93,8 +93,9 @@ namespace Streameo.Controllers
             var song = (from s in db.Songs
                            where s.Id == id
                           select s).ToList();
-            //string songData = song.First().Title + "!TitleArtistSeparator!" + song.First().Artist;
             string songData = "";
+            if(song.Count > 0)
+                songData = song.First().Title + "!TitleArtistSeparator!" + song.First().Artist;
             return songData;
         }
 
