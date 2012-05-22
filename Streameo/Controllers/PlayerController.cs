@@ -26,6 +26,7 @@ namespace Streameo.Controllers
 
             if (!User.Identity.IsAuthenticated || User.IsInRole("Normal"))
             {
+                
                 file = Server.MapPath("~/Music/" + song.First().FilePath);
                 string tmpFilePath = Server.MapPath("~/Music/tmp/30s/" + song.First().FilePath);
                 file = SplitMP3(file, tmpFilePath, 31);
@@ -92,8 +93,8 @@ namespace Streameo.Controllers
             var song = (from s in db.Songs
                            where s.Id == id
                           select s).ToList();
-            string songData = song.First().Title + "!TitleArtistSeparator!" + song.First().Artist;
-
+            //string songData = song.First().Title + "!TitleArtistSeparator!" + song.First().Artist;
+            string songData = "";
             return songData;
         }
 

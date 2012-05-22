@@ -1,0 +1,251 @@
+.exampleDiv {
+	height: 200px;
+	width: 200px;
+	border: 1px solid rgba(0,0,0,0.1);
+	float:right;
+	margin: 20px;
+	text-align:center;
+	position:relative;
+}
+
+.butterfly {
+	height: 100px;
+	width: 100px;
+	top: 50px;
+	left: 50px;
+	position:absolute;
+	background-size: 100px 100px;
+	background: transparent url(butterfly.png) 50% no-repeat;
+}
+
+	
+
+.exampleDiv:hover .butterfly {
+	-webkit-animation-play-state:paused;
+	-moz-animation-play-state:paused;
+	animation-play-state:paused;
+	position: absolute;	
+}
+	
+@-webkit-keyframes rainbow {
+
+0% {background-color: #FF0000; top:10px;}
+10% {background-color: #FF8000; top:20px;}
+20% {background-color: #FFFF00; top:30px;}
+30% {background-color: #80FF00; top:40px;}
+40% {background-color: #00FF00; top:50px;}
+50% {background-color: #00FF80; top:60px;}
+60% {background-color: #00FFFF; top:70px;}
+70% {background-color: #0080FF; top:80px;}
+80% {background-color: #0000FF; top:90px;}
+90% {background-color: #8000FF; top:100px;}
+100% {background-color: #FF0080; top:120px;}
+}
+@-webkit-keyframes flapping {	
+	0% {background-size:100px 100px;}
+	100% {background-size: 20px 100px;}
+}
+@-webkit-keyframes flitter {
+0%{-webkit-transform: scale(1,1);}
+100% {-webkit-transform: scale(0.2,1);}
+}
+
+
+
+@-webkit-keyframes rainbowdimmer {
+0% {background-color: #FF0000;
+opacity: 1;}
+20% {background-color: #FFFF00;}
+40% {background-color: #00FF00;}
+50% {opacity: 0;}
+60% {background-color: #00FFFF;}
+80% {background-color: #0000FF;}
+100% {background-color: #FF0080;
+opacity: 1;}
+}
+
+@-webkit-keyframes movement {
+	0%, 100% {
+		
+		top: 0;
+		left: 0;
+	}
+	25% {
+		top: 0;
+		left: 100px;
+	}
+	50% {
+		top: 100px;
+		left: 100px;
+	}
+	75% {
+		top: 100px;
+		left: 0;
+	}
+}
+
+@-webkit-keyframes bouncing {
+	 40%, 70%, 90%{
+		bottom: 0;
+		-webkit-animation-timing-function: ease-out;	
+	}
+	0% {
+		bottom: 200px;
+		left: 0;
+		-webkit-animation-timing-function: ease-in;
+	}
+	55% {
+		bottom: 50px;
+		-webkit-animation-timing-function: ease-in;
+	}
+	80% {
+		bottom: 25px;
+		-webkit-animation-timing-function: ease-in;
+	}
+	95% {
+		bottom: 10px;
+		-webkit-animation-timing-function: ease-in;
+	}
+	100% {
+		left: 110px;
+		bottom: 0;
+		-webkit-animation-timing-function: ease-out;	
+	}
+}
+
+
+@-webkit-keyframes rotation {
+    from{-webkit-transform:rotate(-8deg);}
+    to{-webkit-transform:rotate(8deg);	}
+}
+@-webkit-keyframes bouncing2 {
+	 40%, 70%, 90%{
+		-webkit-transform:translateY(100px);	
+	} 
+	0%{
+		-webkit-transform:translateX(0);	
+	}
+	55% {
+		-webkit-transform:translateY(50px);	
+	}
+	80% {
+		-webkit-transform:translateY(75px);
+	}
+	95% {
+		-webkit-transform:translateY(100px);
+	}
+	100% {
+		-webkit-transform:translate(100px, 100px);	
+	}
+}
+
+@-moz-keyframes rainbow {
+
+0% {background-color: #FF0000;}
+10% {background-color: #FF8000;}
+20% {background-color: #FFFF00;}
+30% {background-color: #80FF00;}
+40% {background-color: #00FF00;}
+50% {background-color: #00FF80;}
+60% {background-color: #00FFFF;}
+70% {background-color: #0080FF;}
+80% {background-color: #0000FF;}
+90% {background-color: #8000FF;}
+100% {background-color: #FF0080;}
+}
+@-moz-keyframes flapping {	
+	0% {background-size:100px 100px;}
+	100% {background-size: 20px 100px;}
+}
+@-moz-keyframes flitter {
+0%{-moz-transform: scale(1,1);}
+100% {-moz-transform: scale(0.2,1);}
+}
+
+
+@-moz-keyframes rainbowdimmer {
+0% {background-color: #FF0000;
+opacity: 1;}
+20% {background-color: #FFFF00;}
+40% {background-color: #00FF00;}
+50% {opacity: 0;}
+60% {background-color: #00FFFF;}
+80% {background-color: #0000FF;}
+100% {background-color: #FF0080;
+opacity: 1;}
+}
+
+@-moz-keyframes movement {
+	0%, 100% {
+		
+		top: 0;
+		left: 0;
+	}
+	25% {
+		top: 0;
+		left: 100px;
+	}
+	50% {
+		top: 100px;
+		left: 100px;
+	}
+	75% {
+		top: 100px;
+		left: 0;
+	}
+}
+
+@-moz-keyframes bouncing {
+	 40%, 70%, 90%{
+		bottom: 0;
+		-moz-animation-timing-function: ease-out;	
+	}
+	0% {
+		bottom: 200px;
+		left: 0;
+		-moz-animation-timing-function: ease-in;
+	}
+	55% {
+		bottom: 50px;
+		-moz-animation-timing-function: ease-in;
+	}
+	80% {
+		bottom: 25px;
+		-moz-animation-timing-function: ease-in;
+	}
+	95% {
+		bottom: 10px;
+		-moz-animation-timing-function: ease-in;
+	}
+	100% {
+		left: 110px;
+		bottom: 0;
+		-moz-animation-timing-function: ease-out;	
+	}
+}
+
+
+@-moz-keyframes rotation {
+    from{-moz-transform:rotate(-8deg);}
+    to{-moz-transform:rotate(8deg);	}
+}
+@-moz-keyframes bouncing2 {
+	 40%, 70%, 90%{
+		-moz-transform:translateY(100px);	
+	} 
+	0%{
+		-moz-transform:translateX(0);	
+	}
+	55% {
+		-moz-transform:translateY(50px);	
+	}
+	80% {
+		-moz-transform:translateY(75px);
+	}
+	95% {
+		-moz-transform:translateY(100px);
+	}
+	100% {
+		-moz-transform:translate(100px, 100px);	
+	}
+}

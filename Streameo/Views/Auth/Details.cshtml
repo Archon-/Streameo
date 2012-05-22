@@ -1,0 +1,50 @@
+﻿@model Streameo.Models.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>User</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">Email</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">Pass</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Pass)
+    </div>
+
+    <div class="display-label">SongsAdded</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SongsAdded)
+    </div>
+
+    <div class="display-label">TimeOfListening</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TimeOfListening)
+    </div>
+
+    <div class="display-label">PremiumStatus</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PremiumStatus)
+    </div>
+
+    <div class="display-label">RegistrationDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RegistrationDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
