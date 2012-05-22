@@ -1,0 +1,21 @@
+﻿@model IEnumerable<String>
+
+@{
+    ViewBag.Title = "Przeglądaj muzykę";
+}
+
+<table>
+    <tr>
+        <th>
+            Gatunek
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item, "Genre", new { name = item })
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,28 @@
+﻿@model List<Streameo.Models.Song>
+@{
+    if (Model.Count > 0)
+    {
+        ViewBag.Title = Model[0].Artist;
+    }
+}
+
+<h2>
+    Artysta: @Html.DisplayFor(modelItem => Model[0].Artist)
+    
+</h2>
+
+<table>
+    <tr>
+        <th>
+            Album
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Album, "Album", new { artist = item.Artist, album = item.Album })
+            </td>
+        </tr>
+    }
+</table>

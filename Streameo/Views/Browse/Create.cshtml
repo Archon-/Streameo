@@ -1,0 +1,97 @@
+﻿@model Streameo.Models.Song
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Song</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Artist)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Artist)
+            @Html.ValidationMessageFor(model => model.Artist)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Album)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Album)
+            @Html.ValidationMessageFor(model => model.Album)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Genre)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Genre)
+            @Html.ValidationMessageFor(model => model.Genre)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AddDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AddDate)
+            @Html.ValidationMessageFor(model => model.AddDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NumberOfPlays)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NumberOfPlays)
+            @Html.ValidationMessageFor(model => model.NumberOfPlays)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NumberOfComments)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NumberOfComments)
+            @Html.ValidationMessageFor(model => model.NumberOfComments)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Rating)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Rating)
+            @Html.ValidationMessageFor(model => model.Rating)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FilePath)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FilePath)
+            @Html.ValidationMessageFor(model => model.FilePath)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

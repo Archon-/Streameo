@@ -1,0 +1,60 @@
+﻿@model Streameo.Models.Song
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Song</legend>
+
+    <div class="display-label">Artist</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Artist)
+    </div>
+
+    <div class="display-label">Album</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Album)
+    </div>
+
+    <div class="display-label">Title</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">Genre</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Genre)
+    </div>
+
+    <div class="display-label">AddDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AddDate)
+    </div>
+
+    <div class="display-label">NumberOfPlays</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NumberOfPlays)
+    </div>
+
+    <div class="display-label">NumberOfComments</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NumberOfComments)
+    </div>
+
+    <div class="display-label">Rating</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Rating)
+    </div>
+
+    <div class="display-label">FilePath</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FilePath)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
