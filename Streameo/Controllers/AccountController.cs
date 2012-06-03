@@ -6,6 +6,11 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using Streameo.Models;
+using System.Web.Helpers;
+using Facebook;
+using System.IO;
+using System.Text;
+using System.Net;
 
 namespace Streameo.Controllers
 {
@@ -79,12 +84,47 @@ namespace Streameo.Controllers
             {
                 // Attempt to register the user
                 MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+                Membership.CreateUser(model.Email, model.Password, model.Email, null, null, false, null, out createStatus);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
+                    MembershipUser account = Membership.GetUser(model.Email);
+
+                    User user = new User();
+                    user.Email = account.Email;
+                    user.RegistrationDate = account.CreationDate;
+                    user.PaymentId = Guid.NewGuid().ToString("N");
+                    user.ActivationKey = Guid.NewGuid().ToString("N");
+
+                    if (ModelState.IsValid)
+                    {
+                        DatabaseContext db = new DatabaseContext();
+
+                        db.Users.Add(user);
+                        db.SaveChanges();
+
+                        Roles.AddUserToRole(account.Email, "User");
+
+                        WebMail.SmtpServer = "smtp.gmail.com";
+                        WebMail.EnableSsl = true;
+                        WebMail.SmtpPort = 587;
+                        WebMail.UserName = "test.owalski@gmail.com";
+                        WebMail.Password = "haslotestowe";
+                        WebMail.Send(
+                                account.Email,
+                                "Aktywacja konta na Streameo",
+                                "Witaj!<br /><br />" +
+                                "Kliknij w poniższy link aby aktywować konto.<br /><br />" +
+                                "<a href=\"" + Url.Action("Activate", "Account", new { key = user.ActivationKey }, Request.Url.Scheme) + "\">Aktywacja</a>"
+                            );
+                    }
+                    else
+                    {
+                        Membership.DeleteUser(account.Email);
+                    }
+                    
+                    //FormsAuthentication.SetAuthCookie(model.Email, false /* createPersistentCookie */);
+                    return RedirectToAction("RegisterSuccess", "Account");
                 }
                 else
                 {
@@ -94,6 +134,11 @@ namespace Streameo.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public ActionResult RegisterSuccess()
+        {
+            return View();
         }
 
         //
@@ -150,6 +195,104 @@ namespace Streameo.Controllers
             return View();
         }
 
+        public ActionResult Activate(string key)
+        {
+            DatabaseContext db = new DatabaseContext();
+
+            var result = from u in db.Users
+                    where u.ActivationKey == key// && u.Pass == pass
+                    select u;
+
+            if (result.Count() == 1)
+            {
+                User user = result.First();
+
+                MembershipUser account = Membership.GetUser(user.Email);
+                account.IsApproved = true;
+                Membership.UpdateUser(account);
+
+                FormsAuthentication.SetAuthCookie(account.Email, false /* createPersistentCookie */);
+
+                return RedirectToAction("Index", "Home");
+            }
+            
+            return View();
+        }
+
+        public ActionResult Facebook()
+        {
+            return new RedirectResult("https://graph.facebook.com/oauth/authorize?type=web_server&client_id=144618862327767&redirect_uri=http://localhost:1188/account/handshake/&scope=email%2Coffline_access%2Cuser_about_me");
+        }
+
+        public ActionResult Handshake(string code)
+        {
+            string clientId = "144618862327767";
+            string clientSecret = "48af78235494ff833ed27d91d89a903d";
+
+            //musimy wyslac zadanie w celu otrzymania access tokena
+            string url = "https://graph.facebook.com/oauth/access_token?client_id={0}&redirect_uri={1}&client_secret={2}&code={3}";
+
+            string redirectUri = "http://localhost:1188/account/handshake/";
+
+             WebRequest request = WebRequest.Create(string.Format(url, clientId, redirectUri, clientSecret, code));
+
+            //przekonwertuj odpowiedz do utf8 i wyciagnij access tokena
+            WebResponse response = request.GetResponse();
+            Stream stream = response.GetResponseStream();
+            Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
+            StreamReader streamReader = new StreamReader(stream, encode);
+            string accessToken = streamReader.ReadToEnd().Replace("access_token=", "");
+            streamReader.Close();
+            response.Close();
+
+            var client = new FacebookClient(accessToken);
+            dynamic me = client.Get("me");
+
+            string email = me.email;
+            string password = Membership.GeneratePassword(20, 6);
+
+            DatabaseContext db = new DatabaseContext();
+
+            var result = from u in db.Users
+                         where u.Email == email
+                         select u;
+
+            if (result.Count() == 0)
+            {
+                MembershipCreateStatus createStatus;
+                Membership.CreateUser(email, password, email, null, null, true, null, out createStatus);
+
+                if (createStatus == MembershipCreateStatus.Success)
+                {
+                    MembershipUser account = Membership.GetUser(email);
+
+                    User user = new User();
+                    user.Email = account.Email;
+                    user.RegistrationDate = account.CreationDate;
+                    user.PaymentId = Guid.NewGuid().ToString("N");
+                    user.ActivationKey = Guid.NewGuid().ToString("N");
+
+                    if (ModelState.IsValid)
+                    {
+                        db.Users.Add(user);
+                        db.SaveChanges();
+
+                        Roles.AddUserToRole(account.Email, "User");
+
+                        FormsAuthentication.SetAuthCookie(account.Email, false /* createPersistentCookie */);
+                    }
+                    else
+                    {
+                        Membership.DeleteUser(account.Email);
+                    }
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
+
+        }
+
+
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {
@@ -158,34 +301,28 @@ namespace Streameo.Controllers
             switch (createStatus)
             {
                 case MembershipCreateStatus.DuplicateUserName:
-                    return "User name already exists. Please enter a different user name.";
+                    return "Użytkownik o takiej nazwie już istnieje.";
 
                 case MembershipCreateStatus.DuplicateEmail:
-                    return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
+                    return "Na ten adres email założono już konto.";
 
                 case MembershipCreateStatus.InvalidPassword:
-                    return "The password provided is invalid. Please enter a valid password value.";
+                    return "Podane hasło jest niepoprawne.";
 
                 case MembershipCreateStatus.InvalidEmail:
-                    return "The e-mail address provided is invalid. Please check the value and try again.";
-
-                case MembershipCreateStatus.InvalidAnswer:
-                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
-
-                case MembershipCreateStatus.InvalidQuestion:
-                    return "The password retrieval question provided is invalid. Please check the value and try again.";
+                    return "Podany adres email jest niepoprawny.";
 
                 case MembershipCreateStatus.InvalidUserName:
-                    return "The user name provided is invalid. Please check the value and try again.";
+                    return "Podany adres email jest niepoprawny.";
 
                 case MembershipCreateStatus.ProviderError:
-                    return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "Wystąpił problem po stronie usługodawcy. Jeśli sytuacja będzie się powtarzać skontaktuj się z administracją.";
 
                 case MembershipCreateStatus.UserRejected:
-                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "Proces tworzenia użytkownika został przerwany. Jeśli sytuacja będzie się powtarzać skontaktuj się z administracją.";
 
                 default:
-                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "Wystąpił nieznany błąd. Jeśli sytuacja będzie się powtarzać skontaktuj się z administracją.";
             }
         }
         #endregion

@@ -92,6 +92,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\gfx\load.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -120,12 +121,24 @@
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
-    <Content Include="Music\Tesserakt\The Uknown\01 Ultrarozpiedalator.mp3" />
-    <Content Include="Music\Tesserakt\The Uknown\02 Inferno.mp3" />
-    <Content Include="Music\Tesserakt\The Uknown\03 111.mp3" />
-    <Content Include="Music\Tesserakt\The Uknown\04 Pieta Zeusa.mp3" />
-    <Content Include="Music\Tesserakt\The Uknown\05 Mist.mp3" />
-    <Content Include="Music\Tesserakt\The Uknown\06 Battle Royale.mp3" />
+    <Content Include="Music\8_mile\01 - Lose Yourself.mp3" />
+    <Content Include="Music\8_mile\02 - Love Me.mp3" />
+    <Content Include="Music\8_mile\03 - 8 Mile.mp3" />
+    <Content Include="Music\8_mile\04 - Adrenaline Rush.mp3" />
+    <Content Include="Music\8_mile\05 - Places To Go.mp3" />
+    <Content Include="Music\8_mile\06 - Rap Game.mp3" />
+    <Content Include="Music\8_mile\07 - 8 Miles And Running.mp3" />
+    <Content Include="Music\8_mile\08 - Spitshine.mp3" />
+    <Content Include="Music\8_mile\09 - Time Of Your Life.mp3" />
+    <Content Include="Music\8_mile\10 - You Wanna Be Me.mp3" />
+    <Content Include="Music\8_mile\11 - Wanksta.mp3" />
+    <Content Include="Music\8_mile\12 - Wasting My Time.mp3" />
+    <Content Include="Music\8_mile\13 - R.A.K.I.M..mp3" />
+    <Content Include="Music\8_mile\14 - Thats My Nigga Fo Real.mp3" />
+    <Content Include="Music\8_mile\15 - Battle.mp3" />
+    <Content Include="Music\8_mile\16 - Run Rabbit Run.mp3" />
+    <Content Include="Music\8_mile\bso_-_8_mile_eminem-back.jpg" />
+    <Content Include="Music\8_mile\bso_-_8_mile_eminem-front.jpg" />
     <Content Include="Scripts\jplayer\circle.player.js" />
     <Content Include="Scripts\jplayer\jplayer.playlist.min.js" />
     <Content Include="Scripts\jplayer\Jplayer.swf" />
@@ -147,6 +160,7 @@
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\navigation.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\player.js" />
@@ -233,6 +247,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Browse\Artist.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Activate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\RegisterSuccess.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

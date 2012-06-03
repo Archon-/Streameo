@@ -40,7 +40,7 @@ namespace Streameo.Controllers
             pass = FormsAuthentication.HashPasswordForStoringInConfigFile(pass, "SHA1");
             
             var result = from u in db.Users
-                         where u.Email == email && u.Pass == pass
+                         where u.Email == email// && u.Pass == pass
                          select u;
 
             if (result.Count() > 0)
@@ -105,9 +105,9 @@ namespace Streameo.Controllers
             {
                 User user = new User();
 
-                user.Name = me.name;
+                //user.Name = me.name;
                 user.Email = me.email;
-                user.Pass = FormsAuthentication.HashPasswordForStoringInConfigFile("test", "SHA1");
+                //user.Pass = FormsAuthentication.HashPasswordForStoringInConfigFile("test", "SHA1");
                 user.RegistrationDate = DateTime.Now;
                 user.PaymentId = Guid.NewGuid().ToString("N");
 
@@ -146,7 +146,7 @@ namespace Streameo.Controllers
         public ActionResult Register(User user)
         {
             user.RegistrationDate = DateTime.Now;
-            user.Pass = FormsAuthentication.HashPasswordForStoringInConfigFile(user.Pass, "SHA1");
+            //user.Pass = FormsAuthentication.HashPasswordForStoringInConfigFile(user.Pass, "SHA1");
             user.PaymentId = Guid.NewGuid().ToString("N");
             
             if (ModelState.IsValid)

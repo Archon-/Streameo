@@ -1,5 +1,5 @@
 ﻿@if(Request.IsAuthenticated) {
-    <text>Welcome <strong>@User.Identity.Name</strong>!
+    <text>Zalogowany jako: <strong>@User.Identity.Name</strong>!
     [ @Html.ActionLink("Wyloguj", "LogOff", "Account") ]
      <form action="@Streameo.Models.Dotpay.LinkToPay" method="post">
 
@@ -14,7 +14,7 @@
 }
 else
 {
-    @:[ @Html.ActionLink("Rejestracja", "Register", "Auth") ]
-    @:[ @Html.ActionLink("Zaloguj", "Login", "Auth") ]
-    @:[ @Html.ActionLink("Zaloguj przez Facebooka", "Facebook", "Auth") ]
+    @:[ @Html.ActionLink("Rejestracja", "Register", "Account", null, new { @class = "ajax"}) ]
+    @:[ @Html.ActionLink("Zaloguj", "LogOn", "Account", null, new { @class = "ajax" }) ]
+    @:[ @Html.ActionLink("Zaloguj przez Facebooka", "Facebook", "Account") ]
 }
