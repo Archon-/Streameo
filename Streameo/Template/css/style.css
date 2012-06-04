@@ -870,7 +870,7 @@ td { vertical-align: top; }
 			}
 			
 			section#main h2 {
-				margin: 0px 4px;
+				margin: 0px 1px;
 				font-family: Arial;
 				font-size: 22px;
 				color: #171717;
@@ -893,6 +893,7 @@ td { vertical-align: top; }
 					display: block;
 					height: 36px;
 					border-top: 1px dashed #bebebe;
+					
 				}
 				
 					section#main ul li:hover {
@@ -900,8 +901,14 @@ td { vertical-align: top; }
 					}
 				
 					section#main ul li a {
-						height: 36px;
+						width: 115px;
+						height: 22px;
 						text-decoration: none;
+						display: block; 
+						float: left;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
 					}
 				
 					section#main ul li span {
@@ -935,6 +942,8 @@ td { vertical-align: top; }
 						font-size: 10px;
 						color: #202020;
 						font-weight: 100;
+						display: block;
+						float: left;
 					}
 					
 						section#main ul li span.artist a {
@@ -1117,8 +1126,13 @@ td { vertical-align: top; }
 				text-align: center;
 			}
 			
+			section#main #login-contener p#login-info {
+				margin: 0px 0px 5px;
+				font-size: 12px;
+			}
+			
 			section#main #login-contener input.text {
-				margin: 0px 0px 20px;
+				margin: 5px 0px 15px;
 				height: 32px;
 				width: 270px;
 				text-indent: 10px;
@@ -1147,6 +1161,35 @@ td { vertical-align: top; }
 					color: #424242;
 					font-weight: bold;
 				}
+				
+			section#main #login-contener .error-msg {
+				margin: 0px 0px 10px;
+				padding: 5px;
+				background: #f19c9c;
+				-webkit-border-radius: 3px;
+				-moz-border-radius: 3px;
+				border-radius: 3px;
+			}
+			
+				section#main #login-contener .error-msg p {
+					display: block;
+					margin: 0px;
+					padding: 0px;
+					font-size: 16px;
+				}
+				
+					section#main #login-contener .error-msg p img {
+						margin: 0px 5px;
+					}
+					
+			section#main #login-contener .ok-msg {
+				margin: 0px 0px 10px;
+				padding: 5px;
+				background: #c1feac;
+				-webkit-border-radius: 3px;
+				-moz-border-radius: 3px;
+				border-radius: 3px;
+			}
 							
 	footer {
 		margin: 0px;
