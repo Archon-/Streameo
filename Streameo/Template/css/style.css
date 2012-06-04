@@ -848,7 +848,7 @@ td { vertical-align: top; }
 		
 		section#main #columns {
 			margin: 0px auto;
-			padding: 40px 0px 0px;
+			padding: 40px 0px 20px;
 			width: 800px;
 		}
 		
@@ -1095,6 +1095,21 @@ td { vertical-align: top; }
 							section#main #content .album-line .album-list ul li a:hover {
 								color: #000;
 							}
+							
+	footer {
+		margin: 0px;
+		padding: 20px;
+		width: 100%;
+		background: #555;
+		color: #cccbcb;
+		font-size: 13px;
+	}
+	
+		footer #footer-inner {
+			margin: 0px auto;
+			width: 800px;
+		}
+	
 /*
 .demo-container {
 	border: 1px solid #009BE3;
