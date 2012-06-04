@@ -35,7 +35,11 @@ namespace Streameo.Models
                             Album = f.Tag.Album,
                             Genre = f.Tag.FirstGenre,
                             FilePath = filePath,
-                            AddDate = DateTime.Now
+                            AddDate = DateTime.Now,
+                            Rating = 0,
+                            Voters = new List<Voting>(),
+                            NumberOfPlays = 0,
+                            NumberOfComments = 0
                         });
                     }
                     AddAllMusic(context, directory);

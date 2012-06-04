@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using Streameo.Models;
 
 namespace Streameo.Controllers
-{ 
+{
     public class BrowseController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
@@ -19,7 +19,7 @@ namespace Streameo.Controllers
         public ViewResult Index()
         {
             List<string> genres = (from s in db.Songs
-                                 select s.Genre).Distinct().ToList();
+                                   select s.Genre).Distinct().ToList();
 
             return View(genres);
         }
@@ -62,6 +62,12 @@ namespace Streameo.Controllers
                                  where s.Album == album &&
                                        s.Artist == artist
                                  select s).ToList();
+
+            foreach (var item in album1)
+            {
+                if (item.Voters == null)
+                    item.Voters = new List<Voting>();
+            }
             return View(album1);
         }
 
@@ -74,13 +80,28 @@ namespace Streameo.Controllers
             return View(song);
         }
 
+        [HttpPost]
+        public bool Rate(int id, double rating)
+        {
+            if (ModelState.IsValid)
+            {
+                Song song = db.Songs.Find(id);
+                song.Voters.Add(new Voting() { Vote = rating, User = User.Identity.Name});
+                db.Entry(song).State = EntityState.Modified;
+                db.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
         //
         // GET: /Browse/Create
 
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /Browse/Create
@@ -92,15 +113,15 @@ namespace Streameo.Controllers
             {
                 db.Songs.Add(song);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
 
             return View(song);
         }
-        
+
         //
         // GET: /Browse/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             Song song = db.Songs.Find(id);
@@ -124,7 +145,7 @@ namespace Streameo.Controllers
 
         //
         // GET: /Browse/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             Song song = db.Songs.Find(id);
@@ -136,7 +157,7 @@ namespace Streameo.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {            
+        {
             Song song = db.Songs.Find(id);
             db.Songs.Remove(song);
             db.SaveChanges();

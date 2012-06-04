@@ -22,7 +22,10 @@
         <ul>
             @foreach (var album in Model.Albums)
             {
-                <li><a href="#">@album.Album by @album.Artist</a></li>
+                <li>@Html.ActionLink(@album.Album, "Album", "Browse", new { artist = @album.Artist, album = @album.Album }, null)
+                    by
+                    @Html.ActionLink(@album.Artist, "Artist", "Browse", new { artist = @album.Artist }, null)
+                </li>
             }
         </ul>
     </div>
@@ -32,7 +35,7 @@
         <ul>
             @foreach (var artist in Model.Artists)
             {
-                <li><a href="#">@artist.Artist</a></li>
+                <li>@Html.ActionLink(@artist.Artist, "Artist", "Browse", new { artist = @artist.Artist }, null)</li>
             }
         </ul>
     </div>

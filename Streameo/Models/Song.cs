@@ -17,7 +17,8 @@ namespace Streameo.Models
         public DateTime AddDate { get; set; }
         public int NumberOfPlays { get; set; }
         public int NumberOfComments { get; set; }
-        public int Rating { get; set; }
+        public List<Voting> Voters { get; set; }
+        public double Rating { get; set; }
         public string FilePath { get; set; }
     }
 
@@ -26,5 +27,12 @@ namespace Streameo.Models
         public List<Song> Songs { get; set; }
         public List<Song> Albums { get; set; }
         public List<Song> Artists { get; set; }        
+    }
+
+    public class Voting
+    {
+        public int Id { get; set; }
+        public double Vote { get; set; }
+        public string User { get; set; }
     }
 }
