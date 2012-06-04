@@ -982,6 +982,7 @@ td { vertical-align: top; }
 	
 	section#main #content {
 		margin: 0px 0px 0px 200px;
+		padding: 1px;
 		
 	}
 	
@@ -1043,6 +1044,57 @@ td { vertical-align: top; }
 				#table-odd {
 					background: #313131;
 				}
+				
+		section#main #content #artist-site {
+			margin: 20px;
+			padding: 0px;
+		}
+		
+			section#main #content #artist-site #artist-line {
+				margin: 0px 0px 30px;
+			}
+			
+				section#main #content #artist-site #artist-line img {
+					margin: 0px 15px 15px 0px;
+				}
+				
+				section#main #content #artist-site #artist-line p {
+					margin: 0px 0px 10px;
+					font-size: 13px;
+				}
+				
+			section#main #content .album-line {
+				margin: 0px 0px 20px 70px;
+				width: 650px;
+			}
+				
+				section#main #content .album-line .album-cover {
+					margin: 0px;
+					width: 130px;
+					float: left;
+				}
+				
+				section#main #content .album-line .album-list {
+					padding: 0px 10px;
+					width: 500px;
+					float: right;
+				}
+				
+					section#main #content .album-line .album-list ul {
+						
+					}
+					
+						section#main #content .album-line .album-list ul li {
+							height: 21px;
+						}
+						
+							section#main #content .album-line .album-list ul li a {
+								color: #383838;
+							}
+							
+							section#main #content .album-line .album-list ul li a:hover {
+								color: #000;
+							}
 /*
 .demo-container {
 	border: 1px solid #009BE3;

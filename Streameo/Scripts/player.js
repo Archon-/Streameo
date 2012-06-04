@@ -2,6 +2,10 @@
     LoadMusicFile(1);
 });
 
+$('.load-song').live('click', function (e) {
+    e.preventDefault();
+});
+
 var myPlaylist;
 var title1 = "error";
 function LoadMusicFile(fileId, param) {

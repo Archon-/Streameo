@@ -1,33 +1,25 @@
 ﻿@model Streameo.Models.RegisterModel
 
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Rejestracja";
 }
 
-<h2>Create a New Account</h2>
+<h2>Tworzenie nowego konta</h2>
 <p>
-    Use the form below to create a new account. 
+    Użyj poniższego formularza do utworzenia nowego konta. 
 </p>
 <p>
-    Passwords are required to be a minimum of @Membership.MinRequiredPasswordLength characters in length.
+    Hasło musi mieć przynjamniej @Membership.MinRequiredPasswordLength znaków.
 </p>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
 @using (Html.BeginForm()) {
-    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    @Html.ValidationSummary(true, "Utworzenie konta nie powiodło się. Popraw błedy i spróbuj jeszcze raz")
     <div>
         <fieldset>
-            <legend>Account Information</legend>
-
-            <div class="editor-label">
-                @Html.LabelFor(m => m.UserName)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
-            </div>
+            <legend>Dane użytkownika</legend>
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.Email)
@@ -54,7 +46,7 @@
             </div>
 
             <p>
-                <input type="submit" value="Register" />
+                <input type="submit" value="Rejestruj" />
             </p>
         </fieldset>
     </div>

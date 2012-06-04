@@ -38,13 +38,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.ActivationKey)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Pass)
+            @Html.DisplayFor(modelItem => item.PaymentId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SongsAdded)

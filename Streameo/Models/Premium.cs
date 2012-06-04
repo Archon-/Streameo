@@ -14,7 +14,9 @@ namespace Streameo.Models
         {
             DatabaseContext db = new DatabaseContext();
             var user = (from s in db.Users where s.Email == name select s).FirstOrDefault();
-            return user.PaymentId;
+            if (user != null)
+                return user.PaymentId;
+            else return "test";
         }
     }
 }
