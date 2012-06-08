@@ -48,7 +48,7 @@ namespace Streameo.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    ModelState.AddModelError("Password", "Nazwa użytkownika lub hasło nieprawidłowe.");
                 }
             }
 
@@ -179,7 +179,7 @@ namespace Streameo.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                    ModelState.AddModelError("OldPassword", "Aktualne hasło jest nieprawidłowe.");
                 }
             }
 
@@ -226,6 +226,7 @@ namespace Streameo.Controllers
 
         public ActionResult Handshake(string code)
         {
+            bool flag = true;
             string clientId = "144618862327767";
             string clientSecret = "48af78235494ff833ed27d91d89a903d";
 
@@ -278,14 +279,18 @@ namespace Streameo.Controllers
                         db.SaveChanges();
 
                         Roles.AddUserToRole(account.Email, "User");
-
-                        FormsAuthentication.SetAuthCookie(account.Email, false /* createPersistentCookie */);
                     }
                     else
                     {
                         Membership.DeleteUser(account.Email);
+                        flag = false;
                     }
                 }
+            }
+
+            if (flag)
+            {
+                FormsAuthentication.SetAuthCookie(email, false /* createPersistentCookie */);
             }
 
             return RedirectToAction("Index", "Home");

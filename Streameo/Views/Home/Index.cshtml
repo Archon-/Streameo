@@ -2,7 +2,57 @@
 @{
     ViewBag.Title = "Streameo";
 }
-<div id="Toplists">
+
+<div id="columns">
+	<div id="col1" class="col">
+	  	<h2>Top <span>tytuły</span></h2>
+	  	<ul>
+        @foreach (var song in Model.Songs)
+        {
+            <li>
+            <span class="number">1</span>
+            <span class="position"><img src="@Url.Content("~/Content/images/position-up.jpg")" border="0" alt="" /></span>
+            <span class="cover30"><img src="@Url.Content("~/Content/images/covers/30/cover1.png")" border="0" alt="" /></span>
+            <a class="load-song" href="#" onclick="LoadMusicFile(@song.Id,true)">@song.Title</a>
+            <!--<a class="load-song" href="#" onclick="AddToPlaylist(@song.Id)">+</a>-->
+            <span class="artist">@song.Artist</span>
+            </li>
+        }
+        </ul>
+	</div>
+	<div id="col2" class="col">
+		<h2>Top <span>albumy</span></h2>
+		<ul>
+        @foreach (var album in Model.Albums)
+        {
+            <li>
+	  			<span class="number">1</span> 
+				<span class="position"><img src="@Url.Content("~/Content/images/position-up.jpg")" border="0" alt="" /></span>
+				<span class="cover30"><img src="@Url.Content("~/Content/images/covers/30/cover1.png")" border="0" alt="" /></span>
+				<a href="#">@album.Album</a>
+                <span class="artist">@album.Artist</span>
+			</li>
+        }
+        </ul>
+    </div>
+	<div id="col3" class="col">
+		<h2>Top <span>wykonawcy</span></h2>
+		<ul>
+        @foreach (var artist in Model.Artists)
+        {
+            <li>
+	  			<span class="number">1</span> 
+				<span class="position"><img src="@Url.Content("~/Content/images/position-up.jpg")" border="0" alt="" /></span>
+				<span class="cover30"><img src="@Url.Content("~/Content/images/covers/30/cover1.png")" border="0" alt="" /></span>
+				<a href="#">@artist.Artist</a>
+			</li>
+        }
+        </ul> 		
+    </div>
+	<div class="clr"></div>
+</div>
+
+<!--<div id="Toplists">
     <div id="topSongs">
         <h2 class="topTitle">
             Top songs</h2>
@@ -39,4 +89,4 @@
             }
         </ul>
     </div>
-</div>
+</div>-->
