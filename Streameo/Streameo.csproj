@@ -34,6 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataAnnotationsExtensions">
+      <HintPath>..\packages\DataAnnotationsExtensions.1.1.0.0\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="DataAnnotationsExtensions.ClientValidation">
+      <HintPath>..\packages\DataAnnotationsExtensions.MVC3.1.1.0.0\lib\NETFramework40\DataAnnotationsExtensions.ClientValidation.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
@@ -69,8 +75,12 @@
     <Reference Include="taglib-sharp">
       <HintPath>..\packages\taglib-sharp.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.2.0.0\lib\NETFramework40\WebActivator.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\RegisterClientValidationExtensions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BrowseController.cs" />
@@ -92,7 +102,43 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="apple-touch-icon.png" />
+    <Content Include="Content\css\style.css" />
     <Content Include="Content\gfx\load.gif" />
+    <Content Include="Content\images\.gitignore" />
+    <Content Include="Content\images\cds\cassette.png" />
+    <Content Include="Content\images\cds\cd1.jpg" />
+    <Content Include="Content\images\cds\cd10.jpg" />
+    <Content Include="Content\images\cds\cd2.jpg" />
+    <Content Include="Content\images\cds\cd3.jpg" />
+    <Content Include="Content\images\cds\cd4.jpg" />
+    <Content Include="Content\images\cds\cd5.jpg" />
+    <Content Include="Content\images\cds\cd6.jpg" />
+    <Content Include="Content\images\cds\cd7.jpg" />
+    <Content Include="Content\images\cds\cd8.jpg" />
+    <Content Include="Content\images\cds\cd9.jpg" />
+    <Content Include="Content\images\cds\vinyl.png" />
+    <Content Include="Content\images\control-bg.png" />
+    <Content Include="Content\images\covers\30\cover1.png" />
+    <Content Include="Content\images\covers\30\cover2.png" />
+    <Content Include="Content\images\covers\30\cover3.png" />
+    <Content Include="Content\images\covers\30\cover4.png" />
+    <Content Include="Content\images\cover_187.jpg" />
+    <Content Include="Content\images\cover_200.jpg" />
+    <Content Include="Content\images\main-bg.png" />
+    <Content Include="Content\images\media-forward-active.png" />
+    <Content Include="Content\images\media-forward.png" />
+    <Content Include="Content\images\media-pause.png" />
+    <Content Include="Content\images\media-player-active.png" />
+    <Content Include="Content\images\media-player.png" />
+    <Content Include="Content\images\media-rewind-active.png" />
+    <Content Include="Content\images\media-rewind.png" />
+    <Content Include="Content\images\msg-error.png" />
+    <Content Include="Content\images\position-same.jpg" />
+    <Content Include="Content\images\position-up.jpg" />
+    <Content Include="Content\images\search-button-bg.jpg" />
+    <Content Include="Content\images\streameo.jpg" />
+    <Content Include="Content\images\top-bar-bg.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -120,25 +166,26 @@
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Music\8_mile\01 - Lose Yourself.mp3" />
-    <Content Include="Music\8_mile\02 - Love Me.mp3" />
-    <Content Include="Music\8_mile\03 - 8 Mile.mp3" />
-    <Content Include="Music\8_mile\04 - Adrenaline Rush.mp3" />
-    <Content Include="Music\8_mile\05 - Places To Go.mp3" />
-    <Content Include="Music\8_mile\06 - Rap Game.mp3" />
-    <Content Include="Music\8_mile\07 - 8 Miles And Running.mp3" />
-    <Content Include="Music\8_mile\08 - Spitshine.mp3" />
-    <Content Include="Music\8_mile\09 - Time Of Your Life.mp3" />
-    <Content Include="Music\8_mile\10 - You Wanna Be Me.mp3" />
-    <Content Include="Music\8_mile\11 - Wanksta.mp3" />
-    <Content Include="Music\8_mile\12 - Wasting My Time.mp3" />
-    <Content Include="Music\8_mile\13 - R.A.K.I.M..mp3" />
-    <Content Include="Music\8_mile\14 - Thats My Nigga Fo Real.mp3" />
-    <Content Include="Music\8_mile\15 - Battle.mp3" />
-    <Content Include="Music\8_mile\16 - Run Rabbit Run.mp3" />
-    <Content Include="Music\8_mile\bso_-_8_mile_eminem-back.jpg" />
-    <Content Include="Music\8_mile\bso_-_8_mile_eminem-front.jpg" />
+    <Content Include="Music\Greatest Hits\01 - Born To Run.mp3" />
+    <Content Include="Music\Greatest Hits\02 - Thunder Road.mp3" />
+    <Content Include="Music\Greatest Hits\03 - Badlands.mp3" />
+    <Content Include="Music\Greatest Hits\04 - The River.mp3" />
+    <Content Include="Music\Greatest Hits\05 - Hungry Heart.mp3" />
+    <Content Include="Music\Greatest Hits\06 - Atlantic City.mp3" />
+    <Content Include="Music\Greatest Hits\07 - Dancing In The Dark.mp3" />
+    <Content Include="Music\Greatest Hits\08 - Born In The U.S.A.mp3" />
+    <Content Include="Music\Greatest Hits\09 - My Hometown.mp3" />
+    <Content Include="Music\Greatest Hits\10 - Glory Days.mp3" />
+    <Content Include="Music\Greatest Hits\11 - Brilliant Disguise.mp3" />
+    <Content Include="Music\Greatest Hits\12 - Human Touch.mp3" />
+    <Content Include="Music\Greatest Hits\13 - Better Days.mp3" />
+    <Content Include="Music\Greatest Hits\14 - Streets Of Philadelphia.mp3" />
+    <Content Include="Music\Greatest Hits\15 - Secret Garden.mp3" />
+    <Content Include="Music\Greatest Hits\16 - Murder Incorporated.mp3" />
+    <Content Include="Music\Greatest Hits\17 - Blood Brothers.mp3" />
+    <Content Include="Music\Greatest Hits\18 - This Hard Land.mp3" />
     <Content Include="Scripts\jplayer\circle.player.js" />
     <Content Include="Scripts\jplayer\jplayer.playlist.min.js" />
     <Content Include="Scripts\jplayer\Jplayer.swf" />
@@ -194,7 +241,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout_back.cshtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +300,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\RegisterSuccess.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\fonts\Roboto-Black.ttf" />
+    <None Include="Content\fonts\Roboto-BlackItalic.ttf" />
+    <None Include="Content\fonts\Roboto-Bold.ttf" />
+    <None Include="Content\fonts\Roboto-BoldCondensed.ttf" />
+    <None Include="Content\fonts\Roboto-BoldCondensedItalic.ttf" />
+    <None Include="Content\fonts\Roboto-BoldItalic.ttf" />
+    <None Include="Content\fonts\Roboto-Condensed.ttf" />
+    <None Include="Content\fonts\Roboto-CondensedItalic.ttf" />
+    <None Include="Content\fonts\Roboto-Italic.ttf" />
+    <None Include="Content\fonts\Roboto-Light.ttf" />
+    <None Include="Content\fonts\Roboto-LightItalic.ttf" />
+    <None Include="Content\fonts\Roboto-Medium.ttf" />
+    <None Include="Content\fonts\Roboto-MediumItalic.ttf" />
+    <None Include="Content\fonts\Roboto-Regular.ttf" />
+    <None Include="Content\fonts\Roboto-Thin.ttf" />
+    <None Include="Content\fonts\Roboto-ThinItalic.ttf" />
+    <Content Include="Views\Shared\_playerPartial_new.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

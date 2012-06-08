@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
+using DataAnnotationsExtensions;
 
 namespace Streameo.Models
 {
@@ -30,21 +31,22 @@ namespace Streameo.Models
     public class LogOnModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Podaj email:")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Hasło")]
+        [Display(Name = "Podaj hasło:")]
         public string Password { get; set; }
 
-        [Display(Name = "Zapamiętaj mnie?")]
+        [Display(Name = "Zapamiętaj mnie")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterModel
     {
         [Required]
+        [Email(ErrorMessage = "Wartość pola: {0}. Nie jest prawidłowym adresem email.")]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Adres email")]
         public string Email { get; set; }
