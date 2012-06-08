@@ -21,17 +21,22 @@ namespace Streameo.Controllers
             List<Song> song = (from s in db.Songs
                                  where s.Id == id
                                  select s).ToList();
-            
-            string file = "";
 
-            if (!User.Identity.IsAuthenticated || User.IsInRole("Normal"))
+            User user = null;
+
+            if(User.Identity.IsAuthenticated)
+                 user = (from u in db.Users
+                         where u.Email == User.Identity.Name
+                         select u).FirstOrDefault();
+
+            string file = "";
+            if (user == null || (user != null && !user.IsPremiumAccount()))
             {
-                
                 file = Server.MapPath("~/Music/" + song.First().FilePath);
                 string tmpFilePath = Server.MapPath("~/Music/tmp/30s/" + song.First().FilePath);
                 file = SplitMP3(file, tmpFilePath, 31);
             }
-            else if (User.IsInRole("Premium"))
+            else if (user != null && user.IsPremiumAccount())
                 file = Server.MapPath("~/Music/" + song.First().FilePath);
 
             return File(file, "audio/mp3");

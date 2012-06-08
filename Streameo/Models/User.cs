@@ -22,7 +22,7 @@ namespace Streameo.Models
         {
             if (PremiumEnd == null)
                 return false;
-            else if (PremiumEnd > DateTime.Now)
+            else if (PremiumEnd < DateTime.Now)
             {
                 return false;
             }
@@ -37,7 +37,7 @@ namespace Streameo.Models
                 PremiumEnd = DateTime.Now;
                 PremiumEnd += new TimeSpan(days, 0, 0, 0);
             }
-            else if (PremiumEnd > DateTime.Now)
+            else if (PremiumEnd <= DateTime.Now)
             {
                 PremiumEnd = DateTime.Now + new TimeSpan(days, 0, 0, 0);
             }

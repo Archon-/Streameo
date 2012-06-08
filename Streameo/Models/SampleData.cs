@@ -12,6 +12,32 @@ namespace Streameo.Models
         protected override void Seed(DatabaseContext context)
         {
             AddAllMusic(context, HttpContext.Current.Server.MapPath("/Music/"));
+
+            //context.Users.Add(new User() 
+            //{
+            //    Id = 0,
+            //    Email = "o@p.l",
+            //    PaymentId = "0",
+            //    PremiumEnd = new DateTime(2012, 6, 30),
+            //    PremiumStatus = true,
+            //    RegistrationDate = DateTime.Now,
+            //    SongsAdded = 0,
+            //    TimeOfListening = 0
+            //});
+
+            //context.Users.Add(new User()
+            //{
+            //    Id = 1,
+            //    Email = "o1@p.l",
+            //    PaymentId = "1",
+            //    PremiumEnd = new DateTime(2012, 5, 30),
+            //    PremiumStatus = false,
+            //    RegistrationDate = new DateTime(2012, 5, 1),
+            //    SongsAdded = 0,
+            //    TimeOfListening = 0
+            //});
+            
+
             context.SaveChanges();
         }
 
