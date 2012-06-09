@@ -27,7 +27,7 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(@item.Artist, "Artist", new { artist = @item.Artist })
+                @Html.ActionLink(@item.Artist.Name, "Artist", new { artistId = @item.Artist.Id })
             </td>
             @if (User.IsInRole("Admin"))
             {

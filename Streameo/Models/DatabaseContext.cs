@@ -12,6 +12,9 @@ namespace Streameo.Models
 
         public DbSet<Song> Songs { get; set; }
         public DbSet<Voting> Votings { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Album> Albums { get; set; }
+        public DbSet<Artist> Artists { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Payment> Payments { get; set; }
     }

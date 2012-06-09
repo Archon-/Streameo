@@ -106,6 +106,9 @@
     <Content Include="Content\css\style.css" />
     <Content Include="Content\gfx\load.gif" />
     <Content Include="Content\delete.gif" />
+    <Content Include="Content\images\position-down.png" />
+    <Content Include="Content\images\position-same.png" />
+    <Content Include="Content\images\position-up.png" />
     <Content Include="Content\rateit.css" />
     <Content Include="Content\star.gif" />
     <Content Include="Content\images\.gitignore" />
@@ -170,7 +173,6 @@
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
-
     <Content Include="favicon.ico" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -199,24 +201,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <Content Include="README.jQuery.vsdoc.txt" />
     <Content Include="Scripts\jplayer\circle.player.js" />
     <Content Include="Scripts\jplayer\jplayer.playlist.min.js" />

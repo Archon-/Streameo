@@ -18,26 +18,34 @@ namespace Streameo.Controllers
 
         public ActionResult ListenFile(int id)
         {
-            List<Song> song = (from s in db.Songs
-                                 where s.Id == id
-                                 select s).ToList();
-
-            User user = null;
-
-            if(User.Identity.IsAuthenticated)
-                 user = (from u in db.Users
-                         where u.Email == User.Identity.Name
-                         select u).FirstOrDefault();
-
+            Song song = (from s in db.Songs
+                         where s.Id == id
+                         select s).FirstOrDefault();
             string file = "";
-            if (user == null || (user != null && !user.IsPremiumAccount()))
+            if (song != null)
             {
-                file = Server.MapPath("~/Music/" + song.First().FilePath);
-                string tmpFilePath = Server.MapPath("~/Music/tmp/30s/" + song.First().FilePath);
-                file = SplitMP3(file, tmpFilePath, 31);
+                ++song.NumberOfPlays;
+                ++song.Album.NumberOfPlays;
+                ++song.Artist.NumberOfPlays;
+                db.Entry<Song>(song).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
+
+                User user = null;
+
+                if (User.Identity.IsAuthenticated)
+                    user = (from u in db.Users
+                            where u.Email == User.Identity.Name
+                            select u).FirstOrDefault();
+
+                if (user == null || (user != null && !user.IsPremiumAccount()))
+                {
+                    file = Server.MapPath("~/Music/" + song.FilePath);
+                    string tmpFilePath = Server.MapPath("~/Music/tmp/30s/" + song.FilePath);
+                    file = SplitMP3(file, tmpFilePath, 31);
+                }
+                else if (user != null && user.IsPremiumAccount())
+                    file = Server.MapPath("~/Music/" + song.FilePath);
             }
-            else if (user != null && user.IsPremiumAccount())
-                file = Server.MapPath("~/Music/" + song.First().FilePath);
 
             return File(file, "audio/mp3");
         }
@@ -96,11 +104,11 @@ namespace Streameo.Controllers
         public string ListenData(int id)
         {
             var song = (from s in db.Songs
-                           where s.Id == id
-                          select s).ToList();
+                        where s.Id == id
+                        select s).ToList();
             string songData = "";
-            if(song.Count > 0)
-                songData = song.First().Title + "!TitleArtistSeparator!" + song.First().Artist;
+            if (song.Count > 0)
+                songData = song.First().Title + "!TitleArtistSeparator!" + song.First().Artist.Name;
             return songData;
         }
 

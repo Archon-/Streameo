@@ -37,12 +37,17 @@
 </script>
 
 <h2>
-    Artysta: @Html.DisplayFor(modelItem => Model[0].Artist)
+    @Html.DisplayFor(modelItem => Model[0].Artist.Name)
 </h2>
 <h2>
-    Album: @Html.DisplayFor(modelItem => Model[0].Album)
+    @Html.DisplayFor(modelItem => Model[0].Album.Name)
 </h2>
 
+<br />
+<img src="@Model[0].Album.Cover" width="300" />
+
+<br />
+<br />
 
 <table>
     <tr>
@@ -51,9 +56,6 @@
         </th>
         <th>
             Tytuł utworu
-        </th>
-        <th>
-            Liczba komentarzy
         </th>
         <th>
             Ocena
@@ -87,9 +89,6 @@
             <td>
                 <a href="#" onclick="LoadMusicFile(@item.Id,true)">@item.Title</a>
                 <a href="#" onclick="AddToPlaylist(@item.Id)">+</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfComments)
             </td>
             <td>
             @{ string id1 = "songrating" + @item.Id; }

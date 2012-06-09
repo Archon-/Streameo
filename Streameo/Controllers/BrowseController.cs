@@ -35,32 +35,61 @@ namespace Streameo.Controllers
             List<Song> artists = (from s in songs
                                   where s.Genre == name
                                   orderby s.Genre
-                                  select s).Distinct(new Streameo.Controllers.HomeController.DistinctArtist()).ToList();
+                                  select s).Distinct(new DistinctArtist()).ToList();
             return View(artists);
+        }
+
+        public class DistinctArtist : IEqualityComparer<Song>
+        {
+            public bool Equals(Song x, Song y)
+            {
+                return x.Artist.Equals(y.Artist);
+            }
+
+            public int GetHashCode(Song obj)
+            {
+                return obj.Artist.GetHashCode();
+            }
         }
 
         //
         // GET: /Browse/Artist/5
 
-        public ViewResult Artist(string artist)
+        public ViewResult Artist(int artistId)
         {
             List<Song> songs = (from s in db.Songs
                                 select s).ToList();
 
+            //List<Song> albums = (from s in songs
+            //                     where s.Artist.Name == artist.Name
+            //                     select s).Distinct(new Streameo.Controllers.HomeController.DistinctAlbum()).ToList();
             List<Song> albums = (from s in songs
-                                 where s.Artist == artist
-                                 select s).Distinct(new Streameo.Controllers.HomeController.DistinctAlbum()).ToList();
+                                 where s.Artist.Id == artistId
+                                 select s).Distinct(new DistinctAlbum()).ToList();
             return View(albums);
+        }
+
+        public class DistinctAlbum : IEqualityComparer<Song>
+        {
+            public bool Equals(Song x, Song y)
+            {
+                return x.Album.Equals(y.Album);
+            }
+
+            public int GetHashCode(Song obj)
+            {
+                return obj.Album.GetHashCode();
+            }
         }
 
         //
         // GET: /Browse/Album/5
 
-        public ViewResult Album(string artist, string album)
+        public ViewResult Album(int artistId, int albumId)
         {
             List<Song> album1 = (from s in db.Songs
-                                 where s.Album == album &&
-                                       s.Artist == artist
+                                 where s.Album.Id == albumId &&
+                                       s.Artist.Id == artistId
                                  select s).ToList();
 
             foreach (var item in album1)

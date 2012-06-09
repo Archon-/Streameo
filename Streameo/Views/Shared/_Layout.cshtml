@@ -38,8 +38,9 @@
   	</div>
   	<ul>
   		<li>@Html.ActionLink("Aktualności", "Index", "Home", null, new { @class = "ajax"})</li>
-  		<li><a href="#" title="Muzyka">Muzyka</a></li>
-  		<li><a href="#" title="Radio">Radio</a></li>
+  		<li>@Html.ActionLink("Muzyka", "Index", "Browse", null, new { @class = "ajax"})</li>
+  		@*<li><a href="#" title="Muzyka">Muzyka</a></li>
+  		<li><a href="#" title="Radio">Radio</a></li>*@
   		<li><a href="#" title="Premium">Premium</a></li>
   	</ul>
     @Html.Partial("_LogOnPartial")
