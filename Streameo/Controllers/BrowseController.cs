@@ -66,8 +66,12 @@ namespace Streameo.Controllers
             foreach (var item in album1)
             {
                 if (item.Voters == null)
+                {
                     item.Voters = new List<Voting>();
+                    db.Entry(item).State = EntityState.Modified;
+                }
             }
+            db.SaveChanges();
             return View(album1);
         }
 
@@ -81,18 +85,31 @@ namespace Streameo.Controllers
         }
 
         [HttpPost]
-        public bool Rate(int id, double rating)
+        public double Rate(int id, double rating)
         {
             if (ModelState.IsValid)
             {
                 Song song = db.Songs.Find(id);
+                if (song.Voters == null)
+                    song.Voters = new List<Voting>();
                 song.Voters.Add(new Voting() { Vote = rating, User = User.Identity.Name});
+
+                if (song.Voters != null && song.Voters.Count > 0)
+                {
+                    double rat = 0;
+                    foreach (var item in song.Voters)
+                    {
+                        rat += item.Vote;
+                    }
+                    song.Rating = rat / song.Voters.Count;
+                }
+
                 db.Entry(song).State = EntityState.Modified;
                 db.SaveChanges();
-                return true;
+                return song.Rating;
             }
 
-            return false;
+            return rating;
         }
 
         //

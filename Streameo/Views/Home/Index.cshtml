@@ -7,15 +7,19 @@
 	<div id="col1" class="col">
 	  	<h2>Top <span>tytuły</span></h2>
 	  	<ul>
+        @{ int counter = 1; }
         @foreach (var song in Model.Songs)
         {
             <li>
-            <span class="number">1</span>
+            <span class="number">@counter</span>
+            @{counter = counter + 1;}
             <span class="position"><img src="@Url.Content("~/Content/images/position-up.jpg")" border="0" alt="" /></span>
             <span class="cover30"><img src="@Url.Content("~/Content/images/covers/30/cover1.png")" border="0" alt="" /></span>
             <a class="load-song" href="#" onclick="LoadMusicFile(@song.Id,true)">@song.Title</a>
             <!--<a class="load-song" href="#" onclick="AddToPlaylist(@song.Id)">+</a>-->
-            <span class="artist">@song.Artist</span>
+            <span class="artist">
+                    @Html.ActionLink(@song.Artist, "Artist", "Browse", new { artist = @song.Artist }, null)
+                </span>
             </li>
         }
         </ul>
@@ -23,14 +27,19 @@
 	<div id="col2" class="col">
 		<h2>Top <span>albumy</span></h2>
 		<ul>
+        @{ counter = 1; }
         @foreach (var album in Model.Albums)
         {
             <li>
-	  			<span class="number">1</span> 
+	  			<span class="number">@counter</span>
+                @{counter = counter + 1;}
 				<span class="position"><img src="@Url.Content("~/Content/images/position-up.jpg")" border="0" alt="" /></span>
 				<span class="cover30"><img src="@Url.Content("~/Content/images/covers/30/cover1.png")" border="0" alt="" /></span>
-				<a href="#">@album.Album</a>
-                <span class="artist">@album.Artist</span>
+				@Html.ActionLink(@album.Album, "Album", "Browse", new { artist = @album.Artist, album = @album.Album }, null)
+                <span class="artist">
+                    @Html.ActionLink(@album.Artist, "Artist", "Browse", new { artist = @album.Artist }, null)
+                </span>
+
 			</li>
         }
         </ul>
@@ -38,13 +47,15 @@
 	<div id="col3" class="col">
 		<h2>Top <span>wykonawcy</span></h2>
 		<ul>
+        @{ counter = 1; }
         @foreach (var artist in Model.Artists)
         {
             <li>
-	  			<span class="number">1</span> 
+	  			<span class="number">@counter</span>
+                @{counter = counter + 1;}
 				<span class="position"><img src="@Url.Content("~/Content/images/position-up.jpg")" border="0" alt="" /></span>
 				<span class="cover30"><img src="@Url.Content("~/Content/images/covers/30/cover1.png")" border="0" alt="" /></span>
-				<a href="#">@artist.Artist</a>
+				@Html.ActionLink(@artist.Artist, "Artist", "Browse", new { artist = @artist.Artist }, null)
 			</li>
         }
         </ul> 		

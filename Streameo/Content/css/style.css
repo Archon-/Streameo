@@ -945,11 +945,13 @@ td { vertical-align: top; }
 						display: block;
 						float: left;
 					}
-					
+					    
 						section#main ul li span.artist a {
 							font-size: 10px;
-							color: #202020;
-							text-decoration: none;
+						    color: #202020;
+						    font-weight: 100;
+						    display: block;
+						    float: left;
 						}
 				
 	section#main #left-nav {

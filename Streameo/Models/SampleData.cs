@@ -13,14 +13,14 @@ namespace Streameo.Models
         {
             AddAllMusic(context, HttpContext.Current.Server.MapPath("/Music/"));
 
-            //context.Users.Add(new User() 
+            //context.Users.Add(new User()
             //{
             //    Id = 0,
             //    Email = "o@p.l",
             //    PaymentId = "0",
-            //    PremiumEnd = new DateTime(2012, 6, 30),
-            //    PremiumStatus = true,
-            //    RegistrationDate = DateTime.Now,
+            //    PremiumEnd = new DateTime(2012, 2, 30),
+            //    PremiumStatus = false,
+            //    RegistrationDate = new DateTime(2012, 1, 30),
             //    SongsAdded = 0,
             //    TimeOfListening = 0
             //});

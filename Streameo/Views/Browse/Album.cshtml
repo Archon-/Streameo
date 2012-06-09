@@ -24,7 +24,8 @@
                 data: { id: productID, value: value }, //our data
                 type: 'POST',
                 success: function (data) {
-                    $('#response').append('<li>' + data + '</li>');
+                    ri.rateit('value', data)
+                    //$('#response').append('<li>' + data + '</li>');
 
                 },
                 error: function (jxhr, msg, err) {
@@ -91,8 +92,9 @@
                 @Html.DisplayFor(modelItem => item.NumberOfComments)
             </td>
             <td>
-                @if(User.Identity.IsAuthenticated == false) {
-                    <div data-productid="@item.Id" data-rateit-resetable="false" data-rateit-readonly="true" data-rateit-value="@item.Rating" class="rateit"></div>
+            @{ string id1 = "songrating" + @item.Id; }
+                @if(!User.Identity.IsAuthenticated) {
+                    <div id="@id1" data-rateit-resetable="false" data-rateit-readonly="true" data-productid="@item.Id" data-rateit-value="@item.Rating" class="rateit"></div>
                 }
                 else {
                     bool voted = false;
@@ -107,11 +109,11 @@
 
                     if (voted)
                     {
-                        <div data-productid="@item.Id" data-rateit-resetable="false" data-rateit-readonly="true" data-rateit-value="@item.Rating" class="rateit"></div>
+                        <div id="@id1" data-productid="@item.Id" data-rateit-resetable="false" data-rateit-readonly="true" data-rateit-value="@item.Rating" class="rateit"></div>
                     }
                     else
                     {
-                        <div data-productid="@item.Id" data-rateit-resetable="false" data-rateit-value="@item.Rating" class="rateit"></div>
+                        <div id="@id1" data-productid="@item.Id" data-rateit-resetable="false" data-rateit-value="@item.Rating" class="rateit"></div>
                     }
                 }
             </td>
