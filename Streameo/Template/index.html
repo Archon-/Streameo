@@ -46,16 +46,51 @@
   	</ul>
   	<div class="clr"></div>
   </header>
+  <div id="jquery_jplayer"></div>
   <section id="control" style="width: 100%; height: 94px">
+  			<ul style="display:none">
+				<li><span>Select a track : </span></li>
+				<li><a href="http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3" class="track track-default">Cro Magnon - Man</a></li>
+				<li> | </li>
+				<li><a href="http://www.jplayer.org/audio/mp3/Miaow-05-The-separation.mp3" class="track">The Separation</a></li>
+				<li> | </li>
+				<li><a href="http://www.jplayer.org/audio/mp3/Miaow-04-Lismore.mp3" class="track">Lismore</a></li>
+				<li> | </li>
+				<li><a href="http://www.jplayer.org/audio/mp3/Miaow-10-Thin-ice.mp3" class="track">Thin Ice</a></li>
+			</ul>
   	<div id="buttons">
   		<a href="#" id="rew" class="rew-active">Rewind</a>
-  		<!-- <a href="#" id="play" class="play-active">Play</a> -->
-  		<a href="#" id="pause">Play</a>
+  		<a href="#" id="play" class="play-active jp-play">Play</a>
+  		<a href="#" id="pause" class="jp-pause">Pause</a>
   		<a href="#" id="for" class="for-active">Forward</a>
   		<div class="clr"></div>
+  		<p>fadsgfdg</p>
+			<p>
+				<span class="play-state"></span> :
+				<span class="track-name">nothing</span>
+				at <span class="extra-play-info"></span>
+				of <span class="jp-duration"></span>, which is
+				<span class="jp-current-time"></span>
+			</p>
+			<ul>
+				<li><a class="jp-play" href="#">Play</a></li>
+				<li><a class="jp-pause" href="#">Pause</a></li>
+				<li><a class="jp-stop" href="#">Stop</a></li>
+			</ul>
+			<ul>
+				<li>volume :</li>
+				<li><a class="jp-mute" href="#">Mute</a></li>
+				<li><a class="jp-unmute" href="#">Unmute</a></li>
+				<li> <a class="jp-volume-bar" href="#">|&lt;----------&gt;|</a></li>
+				<li><a class="jp-volume-max" href="#">Max</a></li>
+			</ul>
+  		
   	</div>
   	<div id="progress">
-  		<p id="title">Beyoncé - End Of Time</p>
+  		<p id="title" class="track-name">Beyoncé - End Of Time</p>
+  		<div id="prog-bar">
+  			<div id="percentage"></div>
+  		</div>
   	</div>
   	<div class="clr"></div>
   </section>
@@ -199,9 +234,10 @@
   		<p>Copyright &copy;2012 Streameo</p>
   	</div>
   </footer>
-  <!--
+  
+  		<!--
   		<div id="jquery_jplayer"></div>
-  		<div id="jp_container" class="demo-container">
+  		<div id="jp_containerb" class="demo-container">
 			<ul>
 				<li><span>Select a track : </span></li>
 				<li><a href="http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3" class="track track-default">Cro Magnon Man</a></li>
@@ -231,7 +267,8 @@
 				<li> <a class="jp-volume-bar" href="#">|&lt;----------&gt;|</a></li>
 				<li><a class="jp-volume-max" href="#">Max</a></li>
 			</ul>
-		</div> -->
+		</div>
+		-->
   <!-- JavaScript at the bottom for fast page loading: http://developer.yahoo.com/performance/rules.html#js_bottom -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
