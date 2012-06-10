@@ -96,7 +96,7 @@ namespace Streameo.Controllers
 
         //
         // GET: /Browse/CreateArtist
-
+        [Authorize(Roles="Admin")]
         public ActionResult CreateArtist()
         {
             return View();
@@ -104,7 +104,7 @@ namespace Streameo.Controllers
 
         //
         // POST: /Browse/CreateArtist
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult CreateArtist(Artist artist, HttpPostedFileBase file)
         {
@@ -131,7 +131,7 @@ namespace Streameo.Controllers
 
                 db.Artists.Add(artist);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Artist", new { artist = artist.Name });
             }
 
             return View(artist);
@@ -139,7 +139,7 @@ namespace Streameo.Controllers
 
         //
         // GET: /Browse/EditArtist/5
-
+        [Authorize(Roles = "Admin")]
         public ActionResult EditArtist(int id)
         {
             Artist artist = db.Artists.Find(id);
@@ -148,16 +148,19 @@ namespace Streameo.Controllers
 
         //
         // POST: /Browse/EditArtist/5
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult EditArtist(Artist artist, HttpPostedFileBase file)
         {
+            Artist a = artist;
+            if (artist != null)
+            {
+                a = db.Artists.Find(artist.Id);
+                a.Name = artist.Name;
+            }
+
             if (ModelState.IsValid)
             {
-                var a = db.Artists.Find(artist.Id);
-                a.Name = artist.Name;
-                a.Position = artist.Position;
-
                 if (file != null && file.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(file.FileName);
@@ -181,14 +184,14 @@ namespace Streameo.Controllers
                 db.Entry(a).State = EntityState.Modified;
 
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Artist", new { artist = a.Name });
             }
-            return View(artist);
+            return View(a);
         }
 
         //
         // GET: /Browse/DeleteArtist/5
-
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteArtist(int id)
         {
             Artist artist = db.Artists.Find(id);
@@ -197,7 +200,7 @@ namespace Streameo.Controllers
 
         //
         // POST: /Browse/Delete/5
-
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("DeleteArtist")]
         public ActionResult DeleteArtistConfirmed(int id)
         {
@@ -239,7 +242,7 @@ namespace Streameo.Controllers
 
         //
         // GET: /Browse/CreateAlbum
-
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateAlbum(string artist)
         {
             Artist art = (from s in db.Artists
@@ -265,7 +268,7 @@ namespace Streameo.Controllers
 
         //
         // POST: /Browse/CreateArtist
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult CreateAlbum(AlbumViewModel collection, HttpPostedFileBase file)
         {
@@ -305,13 +308,18 @@ namespace Streameo.Controllers
                 return RedirectToAction("Artist", new { artist = artist.Name });
             }
 
+            collection.Artists = db.Artists.ToList().Select(x => new SelectListItem
+                                {
+                                    Text = x.Name,
+                                    Value = x.Id.ToString()
+                                });
             return View(collection);
         }
 
 
         //
         // GET: /Browse/EditAlbum/5
-
+        [Authorize(Roles = "Admin")]
         public ActionResult EditAlbum(int id)
         {
             var model = new AlbumViewModel();
@@ -336,10 +344,17 @@ namespace Streameo.Controllers
 
         //
         // POST: /Browse/EditAlbum/5
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult EditAlbum(AlbumViewModel collection, HttpPostedFileBase file)
         {
+            Album a2 = collection.Album;
+            if (collection.Album != null)
+            {
+                a2 = db.Albums.Find(collection.Album.Id);
+                a2.Name = collection.Album.Name;
+            }
+
             if (ModelState.IsValid)
             {
                 Artist newArtist = db.Artists.Find(collection.SelectedArtistId);
@@ -413,12 +428,18 @@ namespace Streameo.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Artist", new { artist = newArtist.Name });
             }
+            collection.Album = a2;
+            collection.Artists = db.Artists.ToList().Select(x => new SelectListItem
+                                {
+                                    Text = x.Name,
+                                    Value = x.Id.ToString()
+                                });
             return View(collection);
         }
 
         //
         // GET: /Browse/DeleteAlbum/5
-
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteAlbum(int id)
         {
             Album album = db.Albums.Find(id);
@@ -427,7 +448,7 @@ namespace Streameo.Controllers
 
         //
         // POST: /Browse/Delete/5
-
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("DeleteAlbum")]
         public ActionResult DeleteAlbumConfirmed(int id)
         {
@@ -456,7 +477,7 @@ namespace Streameo.Controllers
 
         //
         // GET: /Browse/CreateSong
-
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateSong(string artist, string album)
         {
             Artist art = (from s in db.Artists
@@ -517,20 +538,18 @@ namespace Streameo.Controllers
 
         //
         // POST: /Browse/CreateSong
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult CreateSong(SongViewModel collection, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-
                 Song s = new Song();
                 s.AddDate = DateTime.Now;
                 Album album = db.Albums.Find(collection.SelectedAlbumId);
                 s.AlbumName = album.Name;
                 Artist artist = db.Artists.Find(collection.SelectedArtistId);
                 s.ArtistName = artist.Name;
-                s.FilePath = collection.Song.FilePath;
                 s.Genre = collection.Song.Genre;
                 s.NumberOfPlays = 0;
                 s.Position = -1;
@@ -561,13 +580,32 @@ namespace Streameo.Controllers
                 return RedirectToAction("Album", new { id = album.Id });
             }
 
+
+            collection.Artists = db.Artists.ToList().Select(x => new SelectListItem
+                                {
+                                    Text = x.Name,
+                                    Value = x.Id.ToString()
+                                });
+
+            Artist art = (from s in db.Artists
+                          where s.Id == collection.SelectedArtistId
+                          select s).FirstOrDefault();
+            if (art != null)
+            {
+                collection.Albums = art.Albums.ToList().Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                });
+            }
+
             return View(collection);
         }
 
 
         //
         // GET: /Browse/EditSong/5
-
+        [Authorize(Roles = "Admin")]
         public ActionResult EditSong(int id, string artist, string album)
         {
             Artist art = (from s in db.Artists
@@ -608,10 +646,17 @@ namespace Streameo.Controllers
 
         //
         // POST: /Browse/EditSong/5
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult EditSong(SongViewModel collection, HttpPostedFileBase file)
         {
+            Song s2 = collection.Song;
+            if (collection.Song != null)
+            {
+                s2 = db.Songs.Find(collection.Song.Id);
+                s2.Title = collection.Song.Title;
+            }
+
             if (ModelState.IsValid)
             {
                 Song s = db.Songs.Find(collection.Song.Id);
@@ -683,12 +728,32 @@ namespace Streameo.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Album", new { id = newAlbum.Id });
             }
+
+            collection.Song = s2;
+            collection.Artists = db.Artists.ToList().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            });
+
+            Artist art = (from s in db.Artists
+                          where s.Id == collection.SelectedArtistId
+                          select s).FirstOrDefault();
+            if (art != null)
+            {
+                collection.Albums = art.Albums.ToList().Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                });
+            }
+
             return View(collection);
         }
 
         //
         // GET: /Browse/DeleteSong/5
-
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteSong(int id)
         {
             Song song = db.Songs.Find(id);
@@ -697,7 +762,7 @@ namespace Streameo.Controllers
 
         //
         // POST: /Browse/DeleteSong/5
-
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("DeleteSong")]
         public ActionResult DeleteSongConfirmed(int id)
         {

@@ -33,14 +33,6 @@
         <br />
         <input id="file" type="file" name="file" onchange="check_file('jpg,jpeg,png')" />
 
-        <div class="editor-label">
-            @Html.Label("Pozycja")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Position)
-            @Html.ValidationMessageFor(model => model.Position)
-        </div>
-
         <p>
             <input type="submit" value="Zapisz" />
         </p>

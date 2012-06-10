@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Streameo.Models
 {
     public class Song
     {
         public int Id { get; set; }
-        //public virtual Artist Artist { get; set; }
-        //public virtual Album Album { get; set; }
         public string ArtistName { get; set; }
         public string AlbumName { get; set; }
+        [Required(ErrorMessage = "To pole jest wymagane")]
         public string Title { get; set; }
+        [Required(ErrorMessage = "To pole jest wymagane")]
         public string Genre { get; set; }
         //public User AddedBy { get; set; }
         public DateTime AddDate { get; set; }
@@ -42,6 +43,7 @@ namespace Streameo.Models
     public class Album
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "To pole jest wymagane")]
         public string Name { get; set; }
         public string ArtistName { get; set; }
         public virtual List<Song> Songs { get; set; }
@@ -54,6 +56,7 @@ namespace Streameo.Models
     public class Artist
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "To pole jest wymagane")]
         public string Name { get; set; }
         public virtual List<Album> Albums { get; set; }
         public int Position { get; set; }
