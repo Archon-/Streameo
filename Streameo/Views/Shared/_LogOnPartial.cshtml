@@ -1,6 +1,12 @@
 ﻿@if(Request.IsAuthenticated) {
     <text>Zalogowany jako: <strong>@User.Identity.Name</strong>!
-    [ @Html.ActionLink("Wyloguj", "LogOff", "Account") ]
+    [ @Html.ActionLink("Wyloguj", "LogOff", "Account") ] 
+    @if (User.IsInRole("Admin"))
+    { 
+        <text>
+        | [ @Html.ActionLink("Panel admina", "Index", "Admin", null, new { @class = "ajax" }) ]
+        </text>
+    }
      <form action="@Streameo.Models.Dotpay.LinkToPay" method="post">
 
 <input type="hidden" name="kwota" value="@Streameo.Models.Premium.Amount" />
@@ -9,12 +15,13 @@
 <button type="submit">Buy premium account!</button>
 </form>
     
+    
     </text>
    
 }
 else
 {
-    @:[ @Html.ActionLink("Rejestracja", "Register", "Account", null, new { @class = "ajax"}) ]
+    @:[ @Html.ActionLink("Rejestracja", "Register", "Account", null, new { @class = "ajax" }) ]
     @:[ @Html.ActionLink("Zaloguj", "LogOn", "Account", null, new { @class = "ajax" }) ]
     @:[ @Html.ActionLink("Zaloguj przez Facebooka", "Facebook", "Account") ]
 }

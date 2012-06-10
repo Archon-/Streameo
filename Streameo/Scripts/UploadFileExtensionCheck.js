@@ -13,5 +13,5 @@
         alert('Zły format pliku.\nDozwolone formaty: ' + array);
         document.getElementById('file').value = '';
     }
-    
+
 }

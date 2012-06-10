@@ -2,36 +2,10 @@
 @{
     ViewBag.Title = Model.Name;
 }
-<link href="../../Content/rateit.css" rel="stylesheet" type="text/css" />
-<script src="../../Scripts/jquery.rateit.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.rateit').bind('rated', function (e) {
-            var ri = $(this);
-
-            //if the use pressed reset, it will get value: 0 (to be compatible with the HTML range control), we could check if e.type == 'reset', and then set the value to  null .
-            var value = ri.rateit('value');
-            var productID = ri.data('productid'); // if the product id was in some hidden field: ri.closest('li').find('input[name="productid"]').val()
-
-            //maybe we want to disable voting?
-            ri.rateit('readonly', true);
-
-            $.ajax({
-                url: "/Browse/Rate?id=" + productID + "&rating=" + value, //your server side script
-                data: { id: productID, value: value }, //our data
-                type: 'POST',
-                success: function (data) {
-                    ri.rateit('value', data)
-                    //$('#response').append('<li>' + data + '</li>');
-
-                },
-                error: function (jxhr, msg, err) {
-                    $('#response').append('<li style="color:red">' + msg + '</li>');
-                }
-            });
-        });
-    });
-</script>
+<link href="@Url.Content("~/Content/rateit.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery.rateit.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/UploadFileExtensionCheck.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/rating.js")" type="text/javascript"></script>
 
 <h2>
     @Html.DisplayFor(modelItem => Model.ArtistName)
@@ -39,20 +13,16 @@
 <h2>
     @Html.DisplayFor(modelItem => Model.Name)
 </h2>
-
 <br />
 <img src="@Model.Cover" width="300" />
-
 <br />
 <br />
-
 @if (User.IsInRole("Admin"))
 {
     <p>
         @Html.ActionLink("Dodaj utwór", "CreateSong", new { artist = Model.ArtistName, album = Model.Name }, new { @class = "ajax" })
     </p>
 }
-
 <table>
     <tr>
         <th>
@@ -66,40 +36,42 @@
         </th>
         @if (User.IsInRole("Admin"))
         {
-        <th>
-            Data dodania
-        </th>
-        <th>
-            Liczba odtworzeń
-        </th>
-        <th>
-            Ścieżka do pliku
-        </th>
-        <th>
-        </th>
+            <th>
+                Data dodania
+            </th>
+            <th>
+                Liczba odtworzeń
+            </th>
+            <th>
+                Ścieżka do pliku
+            </th>
+            <th>
+            </th>
         }
     </tr>
     @{ int i = 1;
-       }
-    
+    }
     @foreach (var item in Model.Songs)
     {
         <tr>
             <td>
-                   @i
+                @i
                 @{ ++i;
-                   }
-            </td>
-            <td>
-                <a href="#" onclick="LoadMusicFile(@item.Id,true)">@item.Title</a>
-                <a href="#" onclick="AddToPlaylist(@item.Id)">+</a>
-            </td>
-            <td>
-            @{ string id1 = "songrating" + @item.Id; }
-                @if(!User.Identity.IsAuthenticated) {
-                    <div id="@id1" data-rateit-resetable="false" data-rateit-readonly="true" data-productid="@item.Id" data-rateit-value="@item.Rating" class="rateit"></div>
                 }
-                else {
+            </td>
+            <td>
+                <a href="#" onclick="LoadMusicFile(@item.Id,true)">@item.Title</a> <a href="#" onclick="AddToPlaylist(@item.Id)">
+                    +</a>
+            </td>
+            <td>
+                @{ string id1 = "songrating" + @item.Id; }
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <div id="@id1" data-rateit-resetable="false" data-rateit-readonly="true" data-productid="@item.Id" data-rateit-value="@item.Rating" class="rateit">
+                    </div>
+                }
+                else
+                {
                     bool voted = false;
                     foreach (var voter in item.Voters)
                     {
@@ -112,29 +84,32 @@
 
                     if (voted)
                     {
-                        <div id="@id1" data-productid="@item.Id" data-rateit-resetable="false" data-rateit-readonly="true" data-rateit-value="@item.Rating" class="rateit"></div>
+                    <div id="@id1" data-productid="@item.Id" data-rateit-resetable="false" data-rateit-readonly="true" data-rateit-value="@item.Rating" class="rateit">
+                    </div>
                     }
                     else
                     {
-                        <div id="@id1" data-productid="@item.Id" data-rateit-resetable="false" data-rateit-value="@item.Rating" class="rateit"></div>
+                    <div id="@id1" data-productid="@item.Id" data-rateit-step="1" data-rateit-resetable="false" data-rateit-value="@item.Rating" class="rateit">
+                    </div>
                     }
                 }
             </td>
             @if (User.IsInRole("Admin"))
             {
-            <td>
-                @Html.DisplayFor(modelItem => item.AddDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfPlays)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FilePath)
-            </td>
-            <td>
-                @Html.ActionLink("Edytuj", "EditSong", new { id = item.Id, artist = Model.ArtistName, album = Model.Name }, new { @class = "ajax" }) |
-                @Html.ActionLink("Usuń", "DeleteSong", new { id = item.Id }, new { @class = "ajax" })
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfPlays)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FilePath)
+                </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "EditSong", new { id = item.Id, artist = Model.ArtistName, album = Model.Name }, new { @class = "ajax" })
+                    |
+                    @Html.ActionLink("Usuń", "DeleteSong", new { id = item.Id }, new { @class = "ajax" })
+                </td>
             }
         </tr>
     }

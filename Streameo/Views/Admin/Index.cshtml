@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Panel admina";
+}
+<h2>
+    Panel admina</h2>
+<p>
+    @Html.ActionLink("Dodaj artystę", "CreateArtist", "Browse", null, new { @class = "ajax" })
+</p>
+<p>
+    @Html.ActionLink("Dodaj album", "CreateAlbum", "Browse", null, new { @class = "ajax" })
+</p>
+<p>
+    @Html.ActionLink("Dodaj utwór", "CreateSong", "Browse", null, new { @class = "ajax" })
+</p>
+
+<br /><br />
+Dodaj utwór[wybierz sam plik, musi on zawierać tagi ID3]
+<br />
+@using (Html.BeginForm("CreateSongFromTags", "Browse", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input id="file" type="file" name="file" onchange="check_file('mp3')" />
+    <p>
+        <input type="submit" value="Dodaj" />
+    </p>
+}

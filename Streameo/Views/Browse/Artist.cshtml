@@ -32,7 +32,7 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item.Name, "Album", new { id = item.Id }, new { @class = "ajax" })
+                @Html.ActionLink(item.Name, "Album", new { id = item.Id })
             </td>
             @if (User.IsInRole("Admin"))
             {

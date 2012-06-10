@@ -96,7 +96,7 @@ namespace Streameo.Controllers
 
         //
         // GET: /Browse/CreateArtist
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateArtist()
         {
             return View();
@@ -480,10 +480,6 @@ namespace Streameo.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult CreateSong(string artist, string album)
         {
-            Artist art = (from s in db.Artists
-                          where s.Name == artist
-                          select s).FirstOrDefault();
-
             var model = new SongViewModel
             {
                 Artists = db.Artists.ToList().Select(x => new SelectListItem
@@ -492,6 +488,15 @@ namespace Streameo.Controllers
                     Value = x.Id.ToString()
                 })
             };
+
+
+            Artist art = (from s in db.Artists
+                          where s.Name == artist
+                          select s).FirstOrDefault();
+
+            if (art == null)
+                art = (from s in db.Artists
+                       select s).FirstOrDefault();
 
             if (art != null)
             {
@@ -582,10 +587,10 @@ namespace Streameo.Controllers
 
 
             collection.Artists = db.Artists.ToList().Select(x => new SelectListItem
-                                {
-                                    Text = x.Name,
-                                    Value = x.Id.ToString()
-                                });
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            });
 
             Artist art = (from s in db.Artists
                           where s.Id == collection.SelectedArtistId
@@ -600,6 +605,117 @@ namespace Streameo.Controllers
             }
 
             return View(collection);
+        }
+
+        //
+        // POST: /Browse/CreateSongFromTags
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult CreateSongFromTags(HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    string cover = "/Content/images/covers/unknown_album.png";
+                    string picture = "/Content/images/artists/unknown_artist.png";
+
+                    var fileName = Path.GetFileName(file.FileName);
+                    string path1 = Server.MapPath("/Music/");
+
+                    file.SaveAs(path1 + "/file1.mp3");
+
+                    TagLib.File f = TagLib.File.Create(path1 + "/file1.mp3");
+                    string albumName = f.Tag.Album;
+                    string artistName = f.Tag.FirstPerformer;
+
+                    if (!Directory.Exists(path1 + artistName))
+                        Directory.CreateDirectory(path1 + artistName);
+
+                    if (!Directory.Exists(path1 + artistName + "/" + albumName))
+                        Directory.CreateDirectory(path1 + artistName + "/" + albumName);
+
+                    var path = Server.MapPath("/Music/" + artistName + "/" + albumName + "/" + fileName);
+                    file.SaveAs(path);
+
+                    string filePath = artistName + "\\" + albumName + "\\" + fileName;
+
+                    Song s = new Song()
+                    {
+                        Title = f.Tag.Title,
+                        ArtistName = artistName,
+                        AlbumName = albumName,
+                        Genre = f.Tag.FirstGenre,
+                        FilePath = filePath,
+                        AddDate = DateTime.Now,
+                        Rating = 0,
+                        Voters = new List<Voting>(),
+                        NumberOfPlays = 0,
+                        Position = -1
+                    };
+                    List<Song> Songs = new List<Song>();
+                    Songs.Add(s);
+
+                    Album Album = new Album()
+                        {
+                            Name = albumName,
+                            ArtistName = artistName,
+                            Position = -1,
+                            PositionImg = "",
+                            Cover = cover,
+                            Songs = Songs
+                        };
+                    List<Album> Albums = new List<Models.Album>();
+                    Albums.Add(Album);
+
+                    Artist artist = (from a in db.Artists
+                                     where a.Name == artistName
+                                     select a).FirstOrDefault();
+
+                    if (artist == null)
+                    {
+                        artist = new Artist()
+                        {
+                            Name = artistName,
+                            Position = -1,
+                            PositionImg = "",
+                            Comments = new List<Comment>(),
+                            Picture = picture,
+                            Albums = Albums
+                        };
+                        db.Artists.Add(artist);
+                    }
+                    else
+                    {
+                        Album aa = (from a in artist.Albums
+                                    where a.Name == albumName
+                                    select a).FirstOrDefault();
+
+                        if (aa == null)
+                        {
+                            artist.Albums.Add(Album);
+                            db.Entry(artist).State = System.Data.EntityState.Modified;
+                        }
+                        else
+                        {
+                            aa.Songs.Add(s);
+                            db.Entry(aa).State = System.Data.EntityState.Modified;
+                        }
+                    }
+
+                    db.SaveChanges();
+
+                    Album aaa = (from a in db.Albums
+                                 where a.Name == albumName
+                                 select a).FirstOrDefault();
+
+                    return RedirectToAction("Album", new { id = aaa.Id });
+                }
+
+            }
+        
+
+            return View();
         }
 
 
