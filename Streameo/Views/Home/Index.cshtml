@@ -13,12 +13,12 @@
             <li>
             <span class="number">@counter</span>
             @{counter = counter + 1;}
-            <span class="position"><img src="@song.PositionImg" border="0" alt="" /></span>
-            <span class="cover30"><img width="30px" height="30px" src="@song.Album.Cover" border="0" alt="" /></span>
-            <a class="load-song" href="#" onclick="LoadMusicFile(@song.Id,true)">@song.Title</a>
-            <!--<a class="load-song" href="#" onclick="AddToPlaylist(@song.Id)">+</a>-->
+            <span class="position"><img src="@song.Item1.PositionImg" border="0" alt="" /></span>
+            <span class="cover30"><img width="30px" height="30px" src="@song.Item2" border="0" alt="" /></span>
+            <a class="load-song" href="#" onclick="LoadMusicFile(@song.Item1.Id,true)">@song.Item1.Title</a>
+            <!--<a class="load-song" href="#" onclick="AddToPlaylist(@song.Item1.Id)">+</a>-->
             <span class="artist">
-                    @Html.ActionLink(@song.Artist.Name, "Artist", "Browse", new { artistId = @song.Artist.Id }, null)
+                    @Html.ActionLink(@song.Item1.ArtistName, "Artist", "Browse", new { artist = @song.Item1.ArtistName }, null)
                 </span>
             </li>
         }
@@ -35,9 +35,9 @@
                 @{counter = counter + 1;}
                 <span class="position"><img src="@album.PositionImg" border="0" alt="" /></span>
                 <span class="cover30"><img width="30px" height="30px" src="@album.Cover" border="0" alt="" /></span>
-				@Html.ActionLink(@album.Name, "Album", "Browse", new { artistId = @album.Artist.Id, albumId = @album.Id }, null)
+				@Html.ActionLink(@album.Name, "Album", "Browse", new { id = @album.Id }, null)
                 <span class="artist">
-                    @Html.ActionLink(@album.Artist.Name, "Artist", "Browse", new { artistId = @album.Artist.Id }, null)
+                    @Html.ActionLink(@album.ArtistName, "Artist", "Browse", new { artist = @album.ArtistName }, null)
                 </span>
 
 			</li>
@@ -55,7 +55,7 @@
                 @{counter = counter + 1;}
                 <span class="position"><img src="@artist.PositionImg" border="0" alt="" /></span>
                 <span class="cover30"><img width="30px" height="30px" src="@artist.Picture" border="0" alt="" /></span>
-				@Html.ActionLink(@artist.Name, "Artist", "Browse", new { artistId = @artist.Id }, null)
+				@Html.ActionLink(@artist.Name, "Artist", "Browse", new { artist = @artist.Name }, null)
 			</li>
         }
         </ul> 		
@@ -71,8 +71,8 @@
             @foreach (var song in Model.Songs)
             {
                 <li>
-                <a class="load-song" href="#" onclick="LoadMusicFile(@song.Id,true)">@song.Title by @song.Artist.Name</a>
-                <a class="load-song" href="#" onclick="AddToPlaylist(@song.Id)">+</a>
+                <a class="load-song" href="#" onclick="LoadMusicFile(@song.Item1.Id,true)">@song.Item1.Title by @song.Item1.ArtistName</a>
+                <a class="load-song" href="#" onclick="AddToPlaylist(@song.Item1.Id)">+</a>
                 </li>
             }
         </ul>
@@ -83,9 +83,9 @@
         <ul>
             @foreach (var album in Model.Albums)
             {
-                <li>@Html.ActionLink(@album.Name, "Album", "Browse", new { artist = @album.Artist, album = @album }, null)
+                <li>@Html.ActionLink(@album.Name, "Album", "Browse", new { id = @album.Id }, null)
                     by
-                    @Html.ActionLink(@album.Artist.Name, "Artist", "Browse", new { artist = @album.Artist }, null)
+                    @Html.ActionLink(@album.ArtistName, "Artist", "Browse", new { artist = @album.ArtistName }, null)
                 </li>
             }
         </ul>
@@ -96,7 +96,7 @@
         <ul>
             @foreach (var artist in Model.Artists)
             {
-                <li>@Html.ActionLink(@artist.Name, "Artist", "Browse", new { artist = @artist }, null)</li>
+                <li>@Html.ActionLink(@artist.Name, "Artist", "Browse", new { artist = @artist.Name }, null)</li>
             }
         </ul>
     </div>

@@ -9,8 +9,10 @@ namespace Streameo.Models
     public class Song
     {
         public int Id { get; set; }
-        public virtual Artist Artist { get; set; }
-        public virtual Album Album { get; set; }
+        //public virtual Artist Artist { get; set; }
+        //public virtual Album Album { get; set; }
+        public string ArtistName { get; set; }
+        public string AlbumName { get; set; }
         public string Title { get; set; }
         public string Genre { get; set; }
         //public User AddedBy { get; set; }
@@ -25,7 +27,7 @@ namespace Streameo.Models
 
     public class Top
     {
-        public List<Song> Songs { get; set; }
+        public List<Tuple<Song, string>> Songs { get; set; } // piosenki + okładki
         public List<Album> Albums { get; set; }
         public List<Artist> Artists { get; set; }        
     }
@@ -40,22 +42,24 @@ namespace Streameo.Models
     public class Album
     {
         public int Id { get; set; }
-        public virtual Artist Artist { get; set; }
         public string Name { get; set; }
+        public string ArtistName { get; set; }
+        public virtual List<Song> Songs { get; set; }
         public string Cover { get; set; }
         public int Position { get; set; }
         public string PositionImg { get; set; }
-        public int NumberOfPlays { get; set; }
+        //public int NumberOfPlays { get; set; }
     }
 
     public class Artist
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public virtual List<Album> Albums { get; set; }
         public int Position { get; set; }
         public string PositionImg { get; set; }
         public virtual List<Comment> Comments { get; set; }
-        public int NumberOfPlays { get; set; }
+        //public int NumberOfPlays { get; set; }
         public string Picture { get; set; }
     }
 
@@ -66,5 +70,21 @@ namespace Streameo.Models
         public string Author { get; set; }
         public string Content { get; set; }
         public DateTime Time { get; set; }
+    }
+
+    public class SongViewModel
+    {
+        public Song Song { get; set; }
+        public int SelectedArtistId { get; set; }
+        public int SelectedAlbumId { get; set; }
+        public IEnumerable<SelectListItem> Artists { get; set; }
+        public IEnumerable<SelectListItem> Albums { get; set; }
+    }
+
+    public class AlbumViewModel
+    {
+        public Album Album { get; set; }
+        public int SelectedArtistId { get; set; }
+        public IEnumerable<SelectListItem> Artists { get; set; }
     }
 }

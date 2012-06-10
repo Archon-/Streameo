@@ -20,12 +20,36 @@ namespace Streameo.Controllers
             
 
             List<Album> albums = (from a in db.Albums
-                                  orderby a.NumberOfPlays descending
-                                  select a).Take(10).ToList();
+                                  select a).ToList();
 
             List<Artist> artists = (from a in db.Artists
-                                    orderby a.NumberOfPlays descending
-                                    select a).Take(10).ToList();
+                                    select a).ToList();
+
+            Dictionary<Artist, int> artistPlays = new Dictionary<Artist, int>();
+            Dictionary<Album, int> albumPlays = new Dictionary<Album, int>();
+            foreach (var artist in artists)
+            {
+                artistPlays.Add(artist, 0);
+                foreach (var album in artist.Albums)
+                {
+                    albumPlays.Add(album, 0);
+                    int plays = 0;
+                    foreach (var song in album.Songs)
+                    {
+                        plays += song.NumberOfPlays;
+                    }
+                    albumPlays[album] += plays;
+                }
+                artistPlays[artist] += albumPlays.Last().Value;
+            }
+
+            var orderedAlbums = albumPlays.OrderByDescending(kvp => kvp.Value);
+            albumPlays = orderedAlbums.Take(10).ToDictionary(k => k.Key, k => k.Value);
+            albums = albumPlays.Keys.ToList();
+
+            var orderedArtists = artistPlays.OrderByDescending(kvp => kvp.Value);
+            artistPlays = orderedArtists.Take(10).ToDictionary(k => k.Key, k => k.Value);
+            artists = artistPlays.Keys.ToList();
 
             //foreach (var item in songs)
             //{
@@ -109,9 +133,30 @@ namespace Streameo.Controllers
                 db.SaveChanges();
             }
 
+            List<string> covers = new List<string>();
+            foreach (var item in songs)
+	        {
+		         Artist aa = (from a in db.Artists 
+                              where a.Name == item.ArtistName 
+                              select a).FirstOrDefault();
+
+                covers.Add((from a in aa.Albums
+                             where a.Name == item.AlbumName
+                             select a.Cover).FirstOrDefault());
+	        }
+
+            List<Tuple<Song, string>> songs1 = new List<Tuple<Song, string>>();
+
+            int i = 0;
+            foreach (var item in songs)
+            {
+                songs1.Add(new Tuple<Song,string>(item, covers[i]));
+                ++i;
+            }
+
             return View(new Top()
             {
-                Songs = songs,
+                Songs = songs1,
                 Albums = albums,
                 Artists = artists
             });

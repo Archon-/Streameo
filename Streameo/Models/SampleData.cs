@@ -46,12 +46,17 @@ namespace Streameo.Models
             try
             {
                 Artist artist = null;
-                Album album = null;
+                Album Album = new Album();
+                List<Song> Songs = new List<Song>();
+                string artistName = "";
                 foreach (string directory in Directory.GetDirectories(sDir))
                 {
                     if (directory.Contains("tmp"))
                         return;
 
+                    Songs = new List<Song>();
+                    Album = null;
+                    string albumName = "";
                     //string[] images = Directory.GetFiles(directory, "*.jpg");
                     string cover = "/Content/images/covers/unknown_album.png";
                     string picture = "/Content/images/artists/unknown_artist.png";
@@ -63,6 +68,8 @@ namespace Streameo.Models
                     foreach (string file in Directory.GetFiles(directory, "*.mp3"))
                     {
                         TagLib.File f = TagLib.File.Create(file);
+                        albumName = f.Tag.Album;
+                        artistName = f.Tag.FirstPerformer;
                         string filePath = file.Replace(HttpContext.Current.Server.MapPath("/Music/"), "");
 
                         if (cover == "/Content/images/covers/unknown_album.png")
@@ -107,33 +114,35 @@ namespace Streameo.Models
                             catch (Exception ex) { }
                         }
 
-                        if (artist == null || (artist != null && artist.Name != f.Tag.FirstPerformer))
-                            artist = new Artist()
-                            {
-                                Name = f.Tag.FirstPerformer,
-                                Position = -1,
-                                PositionImg = "",
-                                Comments = new List<Comment>(),
-                                NumberOfPlays = 0,
-                                Picture = picture
-                            };
+                        //if (artist == null || (artist != null && artist.Name != f.Tag.FirstPerformer))
+                        //    artist = new Artist()
+                        //    {
+                        //        Name = f.Tag.FirstPerformer,
+                        //        Position = -1,
+                        //        PositionImg = "",
+                        //        Comments = new List<Comment>(),
+                        //        NumberOfPlays = 0,
+                        //        Picture = picture,
+                        //        Albums = new List<Album>()
+                        //    };
 
-                        if (album == null || (album != null && album.Name != f.Tag.Album))
-                            album = new Album()
-                            {
-                                Name = f.Tag.Album,
-                                Position = -1,
-                                PositionImg = "",
-                                Cover = cover,
-                                NumberOfPlays = 0,
-                                Artist = artist
-                            };
-
-                        context.Songs.Add(new Song()
+                        //if (album == null || (album != null && album.Name != f.Tag.Album))
+                        //    album = new Album()
+                        //    {
+                        //        Name = f.Tag.Album,
+                        //        Position = -1,
+                        //        PositionImg = "",
+                        //        Cover = cover,
+                        //        NumberOfPlays = 0,
+                        //        Artist = artist
+                        //    };
+                        Songs.Add(new Song()
                         {
                             Title = f.Tag.Title,
-                            Artist = artist,
-                            Album = album,
+                            ArtistName = artistName,
+                            AlbumName = albumName,
+                            //Artist = artist,
+                            //Album = album,
                             Genre = f.Tag.FirstGenre,
                             FilePath = filePath,
                             AddDate = DateTime.Now,
@@ -142,7 +151,44 @@ namespace Streameo.Models
                             NumberOfPlays = 0,
                             Position = -1
                         });
+                        //context.Songs.Add(Songs.Last());
                     }
+
+                    if (Songs.Count > 0)
+                    {
+                        Album  = new Album()
+                        {
+                            Name = albumName,
+                            ArtistName = artistName,
+                            Position = -1,
+                            PositionImg = "",
+                            Cover = cover,
+                            Songs = Songs
+                            //NumberOfPlays = 0
+                        };
+
+                        if (artist == null || (artist != null && artist.Name != artistName))
+                        {
+                            artist = new Artist()
+                            {
+                                Name = artistName,
+                                Position = -1,
+                                PositionImg = "",
+                                Comments = new List<Comment>(),
+                                //NumberOfPlays = 0,
+                                Picture = picture,
+                                Albums = new List<Album>()
+                            };
+                            context.Artists.Add(artist);
+                            context.SaveChanges();
+                        }
+
+                        artist.Albums.Add(Album);
+                        context.Entry(artist).State = System.Data.EntityState.Modified;
+                        context.SaveChanges();
+                    }
+
+
                     AddAllMusic(context, directory);
                 }
             }

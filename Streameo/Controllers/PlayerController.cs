@@ -24,10 +24,15 @@ namespace Streameo.Controllers
             string file = "";
             if (song != null)
             {
+
+                //Album album = (from a in db.Albums
+                //               where a.Songs.Contains(song)
+                //               select a).FirstOrDefault();
+
                 ++song.NumberOfPlays;
-                ++song.Album.NumberOfPlays;
-                ++song.Artist.NumberOfPlays;
-                db.Entry<Song>(song).State = System.Data.EntityState.Modified;
+                //++album.NumberOfPlays;
+                //++song.Artist.NumberOfPlays;
+                db.Entry(song).State = System.Data.EntityState.Modified;
                 db.SaveChanges();
 
                 User user = null;
@@ -108,7 +113,7 @@ namespace Streameo.Controllers
                         select s).ToList();
             string songData = "";
             if (song.Count > 0)
-                songData = song.First().Title + "!TitleArtistSeparator!" + song.First().Artist.Name;
+                songData = song.First().Title + "!TitleArtistSeparator!" + song.First().ArtistName;
             return songData;
         }
 

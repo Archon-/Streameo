@@ -1,33 +1,46 @@
-﻿@model List<Streameo.Models.Song>
+﻿@model Streameo.Models.Artist
 @{
-    if (Model.Count > 0)
-    {
-        ViewBag.Title = Model[0].Artist.Name;
-    }
+    ViewBag.Title = Model.Name;
 }
-
 <h2>
-    @Html.DisplayFor(modelItem => Model[0].Artist.Name)
+    @Html.DisplayFor(modelItem => Model.Name)
 </h2>
+<br />
+<img src="@Model.Picture" width="300" />
+<br />
+<br />
 
-<br />
-<img src="@Model[0].Artist.Picture" width="300" />
-
-<br />
-<br />
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Dodaj album", "CreateAlbum", new { artist = Model.Name })
+    </p>
+}
 
 <table>
     <tr>
         <th>
             Albumy
         </th>
+        @if (User.IsInRole("Admin"))
+        {
+            <th>
+            </th>
+        }
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Albums)
     {
         <tr>
             <td>
-                @Html.ActionLink(item.Album.Name, "Album", new { artistId = item.Artist.Id, albumId = item.Album.Id })
+                @Html.ActionLink(item.Name, "Album", new { id = item.Id })
             </td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Edytuj", "EditAlbum", new { id = @item.Id }) |
+                    @Html.ActionLink("Usuń", "DeleteAlbum", new { id = @item.Id })
+                </td>
+            }
         </tr>
     }
 </table>

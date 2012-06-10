@@ -1,15 +1,11 @@
-﻿@model List<Streameo.Models.Song>
+﻿@model List<Streameo.Models.Artist>
 @{
-    if (Model.Count > 0)
-    {
-        ViewBag.Title = Model[0].Genre;
-    }
+    ViewBag.Title = @ViewBag.Genre;
 }
-
 @if (User.IsInRole("Admin"))
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Dodaj artystę", "CreateArtist")
     </p>
 }
 <table>
@@ -17,25 +13,24 @@
         <th>
             Artysta
         </th>
-            @if (User.IsInRole("Admin"))
-            {
+        @if (User.IsInRole("Admin"))
+        {
             <th>
             </th>
-            }
+        }
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.ActionLink(@item.Artist.Name, "Artist", new { artistId = @item.Artist.Id })
+                @Html.ActionLink(@item.Name, "Artist", new { artist = @item.Name })
             </td>
             @if (User.IsInRole("Admin"))
             {
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { artist = @item.Artist }) |
-                @Html.ActionLink("Details", "Details", new { artist = @item.Artist }) |
-                @Html.ActionLink("Delete", "Delete", new { artist = @item.Artist })
-            </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "EditArtist", new { id = @item.Id }) | @*@Html.ActionLink("Details", "Details", new { artistId = @item.Artist.Id }) |*@
+                    @Html.ActionLink("Usuń", "DeleteArtist", new { id = @item.Id })
+                </td>
             }
         </tr>
     }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<String>
+﻿@model Tuple<List<string>, List<Streameo.Models.Artist>>
 
 @{
     ViewBag.Title = "Przeglądaj muzykę";
@@ -10,7 +10,7 @@
             Gatunek
         </th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Item1)
     {
         <tr>
             <td>
@@ -19,3 +19,28 @@
         </tr>
     }
 </table>
+
+@if(User.IsInRole("Admin"))
+{
+    <table>
+        <tr>
+            <th>
+                Artyści bez utworów
+            </th>
+            <th>
+            </th>
+        </tr>
+        @foreach (var item in Model.Item2)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(@item.Name, "Artist", new { artist = @item.Name })
+                </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "EditArtist", new { id = @item.Id }) | 
+                    @Html.ActionLink("Usuń", "DeleteArtist", new { id = @item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+}

@@ -1,0 +1,21 @@
+﻿@model Streameo.Models.Song
+
+@{
+    ViewBag.Title = "Usuwanie";
+}
+
+<h2>Usuwanie</h2>
+
+<h3>Czy na pewno chcesz usunąć ten utwór?</h3>
+<fieldset>
+    <div class="display-label">Utwór</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Usuń" />
+    </p>
+}

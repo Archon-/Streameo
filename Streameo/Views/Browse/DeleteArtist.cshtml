@@ -1,0 +1,22 @@
+﻿@model Streameo.Models.Artist
+
+@{
+    ViewBag.Title = "Usuwanie";
+}
+
+<h2>Usuwanie</h2>
+
+<h3>Czy na pewno chcesz usunąć tego wykonawcę? Razem z nim zostaną usunęte wszystkie jego albumy i utowry.</h3>
+<fieldset>
+    <div class="display-label">Wykonawca</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Usuń" />
+        @*@Html.ActionLink("Back to List", "Index")*@
+    </p>
+}
