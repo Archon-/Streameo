@@ -14,7 +14,7 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item, "Genre", new { name = item })
+                @Html.ActionLink(item, "Genre", new { name = item }, new { @class = "ajax" })
             </td>
         </tr>
     }
@@ -34,11 +34,11 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(@item.Name, "Artist", new { artist = @item.Name })
+                    @Html.ActionLink(@item.Name, "Artist", new { artist = @item.Name }, new { @class = "ajax" })
                 </td>
                 <td>
-                    @Html.ActionLink("Edytuj", "EditArtist", new { id = @item.Id }) | 
-                    @Html.ActionLink("Usuń", "DeleteArtist", new { id = @item.Id })
+                    @Html.ActionLink("Edytuj", "EditArtist", new { id = @item.Id }, new { @class = "ajax" }) | 
+                    @Html.ActionLink("Usuń", "DeleteArtist", new { id = @item.Id }, new { @class = "ajax" })
                 </td>
             </tr>
         }

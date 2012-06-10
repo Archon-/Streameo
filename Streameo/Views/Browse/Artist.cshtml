@@ -13,7 +13,7 @@
 @if (User.IsInRole("Admin"))
 {
     <p>
-        @Html.ActionLink("Dodaj album", "CreateAlbum", new { artist = Model.Name })
+        @Html.ActionLink("Dodaj album", "CreateAlbum", new { artist = Model.Name }, new { @class = "ajax" })
     </p>
 }
 
@@ -32,13 +32,13 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item.Name, "Album", new { id = item.Id })
+                @Html.ActionLink(item.Name, "Album", new { id = item.Id }, new { @class = "ajax" })
             </td>
             @if (User.IsInRole("Admin"))
             {
                 <td>
-                    @Html.ActionLink("Edytuj", "EditAlbum", new { id = @item.Id }) |
-                    @Html.ActionLink("Usuń", "DeleteAlbum", new { id = @item.Id })
+                    @Html.ActionLink("Edytuj", "EditAlbum", new { id = @item.Id }, new { @class = "ajax" }) |
+                    @Html.ActionLink("Usuń", "DeleteAlbum", new { id = @item.Id }, new { @class = "ajax" })
                 </td>
             }
         </tr>

@@ -5,7 +5,7 @@
 @if (User.IsInRole("Admin"))
 {
     <p>
-        @Html.ActionLink("Dodaj artystę", "CreateArtist")
+        @Html.ActionLink("Dodaj artystę", "CreateArtist",null, new { @class = "ajax"})
     </p>
 }
 <table>
@@ -23,13 +23,13 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(@item.Name, "Artist", new { artist = @item.Name })
+                @Html.ActionLink(@item.Name, "Artist", new { artist = @item.Name }, new { @class = "ajax" })
             </td>
             @if (User.IsInRole("Admin"))
             {
                 <td>
-                    @Html.ActionLink("Edytuj", "EditArtist", new { id = @item.Id }) | @*@Html.ActionLink("Details", "Details", new { artistId = @item.Artist.Id }) |*@
-                    @Html.ActionLink("Usuń", "DeleteArtist", new { id = @item.Id })
+                    @Html.ActionLink("Edytuj", "EditArtist", new { id = @item.Id }, new { @class = "ajax" }) | 
+                    @Html.ActionLink("Usuń", "DeleteArtist", new { id = @item.Id }, new { @class = "ajax" })
                 </td>
             }
         </tr>

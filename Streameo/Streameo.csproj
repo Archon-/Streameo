@@ -299,9 +299,6 @@
     <Content Include="Views\Browse\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Browse\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Browse\CreateArtist.cshtml" />
   </ItemGroup>
   <ItemGroup>

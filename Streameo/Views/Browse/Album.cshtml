@@ -49,7 +49,7 @@
 @if (User.IsInRole("Admin"))
 {
     <p>
-        @Html.ActionLink("Dodaj utwór", "CreateSong", new { artist = Model.ArtistName, album = Model.Name })
+        @Html.ActionLink("Dodaj utwór", "CreateSong", new { artist = Model.ArtistName, album = Model.Name }, new { @class = "ajax" })
     </p>
 }
 
@@ -132,8 +132,8 @@
                 @Html.DisplayFor(modelItem => item.FilePath)
             </td>
             <td>
-                @Html.ActionLink("Edytuj", "EditSong", new { id = item.Id, artist = Model.ArtistName, album = Model.Name }) |
-                @Html.ActionLink("Usuń", "DeleteSong", new { id = item.Id })
+                @Html.ActionLink("Edytuj", "EditSong", new { id = item.Id, artist = Model.ArtistName, album = Model.Name }, new { @class = "ajax" }) |
+                @Html.ActionLink("Usuń", "DeleteSong", new { id = item.Id }, new { @class = "ajax" })
             </td>
             }
         </tr>
