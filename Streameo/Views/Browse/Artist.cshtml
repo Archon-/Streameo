@@ -4,20 +4,6 @@
 }
 
 
-<script type="text/javascript">
-//$(document).on('ready',function () {
-//    alert('0');
-//    DISQUS.reset({
-//        reload: true,
-//        config: function () {
-//            this.page.identifier = "myArticle";
-//            this.page.url = 'http://localhost:1188/Browse/Artist/' + @Html.Raw(Json.Encode(Model.Id)) + '#!newthread';
-//        }
-//    });
-//    });
-
-</script>
-
 <h2>
     @Html.DisplayFor(modelItem => Model.Name)
 </h2>
@@ -88,5 +74,6 @@
 
 <br />
 <br />
+<input type="button" value="Pokaż komentarze" onclick="GetArtistName('@Model.Name')" />
 
 @Disqus.ShowComments("StreameoArtistComments" + Model.Name)
