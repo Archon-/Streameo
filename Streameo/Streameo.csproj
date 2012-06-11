@@ -353,6 +353,7 @@
     <Content Include="Views\Browse\EditSong.cshtml" />
     <Content Include="Views\Browse\DeleteSong.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Account\MyProfile.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
