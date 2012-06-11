@@ -331,5 +331,11 @@ namespace Streameo.Controllers
             }
         }
         #endregion
+
+        public ActionResult MyProfile()
+        {
+            return View();
+        }
     }
+
 }
