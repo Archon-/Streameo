@@ -1,6 +1,11 @@
 ﻿@if(Request.IsAuthenticated) {
     <text>Zalogowany jako: <strong>@User.Identity.Name</strong>!
-    [ @Html.ActionLink("Wyloguj", "LogOff", "Account") ] 
+    [ @Html.ActionLink("Wyloguj", "LogOff", "Account") ] | [ @Ajax.ActionLink("Mój profil", "MyProfile", "Account", new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }) ]
     @if (User.IsInRole("Admin"))
     { 
         <text>
