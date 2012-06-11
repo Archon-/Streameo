@@ -94,6 +94,17 @@ namespace Streameo.Controllers
             return View(artist1);
         }
 
+        //public string ArtistName(int id)
+        //{
+        //    var song = (from s in db.Songs
+        //                where s.Id == id
+        //                select s).ToList();
+        //    string songData = "";
+        //    if (song.Count > 0)
+        //        songData = song.First().Title + "!TitleArtistSeparator!" + song.First().ArtistName;
+        //    return songData;
+        //}
+
         //
         // GET: /Browse/CreateArtist
         [Authorize(Roles = "Admin")]
