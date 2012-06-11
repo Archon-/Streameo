@@ -14,7 +14,13 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item, "Genre", new { name = item }, new { @class = "ajax" })
+            @Ajax.ActionLink(@item, "Genre", "Browse", new { name = item }, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null)
+                @*@Html.ActionLink(item, "Genre", new { name = item }, new { @class = "ajax" })*@
             </td>
         </tr>
     }
@@ -34,11 +40,26 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(@item.Name, "Artist", new { artist = @item.Name }, new { @class = "ajax" })
+                    @Ajax.ActionLink(@item.Name, "Artist", "Browse", new { artist = @item.Name }, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null)
                 </td>
                 <td>
-                    @Html.ActionLink("Edytuj", "EditArtist", new { id = @item.Id }, new { @class = "ajax" }) | 
-                    @Html.ActionLink("Usuń", "DeleteArtist", new { id = @item.Id }, new { @class = "ajax" })
+                    @Ajax.ActionLink("Edytuj", "EditArtist", new { id = @item.Id }, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null) | 
+                    @Ajax.ActionLink("Usuń", "DeleteArtist", new { id = @item.Id }, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null)
                 </td>
             </tr>
         }

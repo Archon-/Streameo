@@ -126,7 +126,6 @@ namespace Streameo.Controllers
 
                 artist.Position = -1;
                 artist.Albums = new List<Album>();
-                artist.Comments = new List<Comment>();
 
 
                 db.Artists.Add(artist);
@@ -679,7 +678,6 @@ namespace Streameo.Controllers
                             Name = artistName,
                             Position = -1,
                             PositionImg = "",
-                            Comments = new List<Comment>(),
                             Picture = picture,
                             Albums = Albums
                         };

@@ -4,13 +4,31 @@
 <h2>
     Panel admina</h2>
 <p>
-    @Html.ActionLink("Dodaj artystę", "CreateArtist", "Browse", null, new { @class = "ajax" })
+    @Ajax.ActionLink("Dodaj artystę", "CreateArtist", "Browse", null, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null)
+    @*@Html.ActionLink("Dodaj artystę", "CreateArtist", "Browse", null, new { @class = "ajax" })*@
 </p>
 <p>
-    @Html.ActionLink("Dodaj album", "CreateAlbum", "Browse", null, new { @class = "ajax" })
+    @Ajax.ActionLink("Dodaj album", "CreateAlbum", "Browse", null, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null)
+    @*@Html.ActionLink("Dodaj album", "CreateAlbum", "Browse", null, new { @class = "ajax" })*@
 </p>
 <p>
-    @Html.ActionLink("Dodaj utwór", "CreateSong", "Browse", null, new { @class = "ajax" })
+    @Ajax.ActionLink("Dodaj utwór", "CreateSong", "Browse", null, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null)
+    @*@Html.ActionLink("Dodaj utwór", "CreateSong", "Browse", null, new { @class = "ajax" })*@
 </p>
 
 <br /><br />

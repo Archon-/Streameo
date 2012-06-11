@@ -4,7 +4,12 @@
     @if (User.IsInRole("Admin"))
     { 
         <text>
-        | [ @Html.ActionLink("Panel admina", "Index", "Admin", null, new { @class = "ajax" }) ]
+        | [ @Ajax.ActionLink("Panel admina", "Index", "Admin", new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }) ]
         </text>
     }
      <form action="@Streameo.Models.Dotpay.LinkToPay" method="post">
@@ -21,7 +26,18 @@
 }
 else
 {
-    @:[ @Html.ActionLink("Rejestracja", "Register", "Account", null, new { @class = "ajax" }) ]
-    @:[ @Html.ActionLink("Zaloguj", "LogOn", "Account", null, new { @class = "ajax" }) ]
+    @:[ @Ajax.ActionLink("Rejestracja", "Register", "Account", new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }) ]
+    @:[ @Ajax.ActionLink("Zaloguj", "LogOn", "Account", new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }) ]
+    
     @:[ @Html.ActionLink("Zaloguj przez Facebooka", "Facebook", "Account") ]
 }

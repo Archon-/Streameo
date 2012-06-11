@@ -18,8 +18,13 @@
             <a class="load-song" href="#" onclick="LoadMusicFile(@song.Item1.Id,true)">@song.Item1.Title</a>
             <!--<a class="load-song" href="#" onclick="AddToPlaylist(@song.Item1.Id)">+</a>-->
             <span class="artist">
-                    @Html.ActionLink(@song.Item1.ArtistName, "Artist", "Browse", new { artist = @song.Item1.ArtistName }, new { @class = "ajax"})
-                </span>
+                @Ajax.ActionLink(@song.Item1.ArtistName, "Artist", "Browse", new { artist = @song.Item1.ArtistName }, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null)
+            </span>
             </li>
         }
         </ul>
@@ -35,9 +40,20 @@
                 @{counter = counter + 1;}
                 <span class="position"><img src="@album.PositionImg" border="0" alt="" /></span>
                 <span class="cover30"><img width="30px" height="30px" src="@album.Cover" border="0" alt="" /></span>
-				@Html.ActionLink(@album.Name, "Album", "Browse", new { id = @album.Id })
+                    @Ajax.ActionLink(@album.Name, "Album", "Browse", new { id = @album.Id }, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET",
+                           OnSuccess = "success"
+                       }, null)
                 <span class="artist">
-                    @Html.ActionLink(@album.ArtistName, "Artist", "Browse", new { artist = @album.ArtistName }, new { @class = "ajax" })
+                    @Ajax.ActionLink(@album.ArtistName, "Artist", "Browse", new { artist = @album.ArtistName }, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null)
                 </span>
 
 			</li>
@@ -55,7 +71,12 @@
                 @{counter = counter + 1;}
                 <span class="position"><img src="@artist.PositionImg" border="0" alt="" /></span>
                 <span class="cover30"><img width="30px" height="30px" src="@artist.Picture" border="0" alt="" /></span>
-				@Html.ActionLink(@artist.Name, "Artist", "Browse", new { artist = @artist.Name }, new { @class = "ajax" })
+                    @Ajax.ActionLink(@artist.Name, "Artist", "Browse", new { artist = @artist.Name }, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null)
 			</li>
         }
         </ul> 		
