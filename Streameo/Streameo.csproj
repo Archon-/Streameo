@@ -205,6 +205,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="README.jQuery.vsdoc.txt" />
+    <Content Include="Scripts\Disqus.js" />
     <Content Include="Scripts\dropdownajax.js" />
     <Content Include="Scripts\jplayer\circle.player.js" />
     <Content Include="Scripts\jplayer\jplayer.playlist.min.js" />

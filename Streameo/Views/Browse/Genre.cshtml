@@ -34,7 +34,9 @@
                        {
                            InsertionMode = InsertionMode.Replace,
                            UpdateTargetId = "main",
-                           HttpMethod = "GET"
+                           HttpMethod = "GET",
+                           
+                           OnSuccess = "successToArtist"
                        }, null)
             </td>
             @if (User.IsInRole("Admin"))

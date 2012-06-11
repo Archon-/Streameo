@@ -1,0 +1,45 @@
+﻿@model Streameo.Models.SearchResults
+@{
+    ViewBag.Title = "Wyniki wyszukiwania";
+}
+<h2>
+    Wyniki wyszukiwania</h2>
+@if (Model.Artists.Count > 0)
+{
+    <fieldset>
+        <legend>Artyści</legend>
+        @foreach (var item in Model.Artists)
+        {
+            <div class="display-field">
+                @Html.ActionLink(@item.Name, "Artist", "Browse", new { artist = @item.Name }, new { @class = "ajax" })
+            </div>
+        }
+    </fieldset>
+}
+
+@if (Model.Albums.Count > 0)
+{
+    <fieldset>
+        <legend>Albumy</legend>
+        @foreach (var item in Model.Albums)
+        {
+            <div class="display-field">
+                @Html.ActionLink(item.Name, "Album", "Browse", new { id = item.Id }, new { @class = "ajax" })
+            </div>
+        }
+    </fieldset>
+}
+
+@if (Model.Songs.Count > 0)
+{
+    <fieldset>
+        <legend>Utwory</legend>
+        @foreach (var item in Model.Songs)
+        {
+            <div class="display-field">
+                <a href="#" onclick="LoadMusicFile(@item.Id,true)">@item.Title</a> <a href="#" onclick="AddToPlaylist(@item.Id)">
+                    +</a>
+            </div>
+        }
+    </fieldset>
+}

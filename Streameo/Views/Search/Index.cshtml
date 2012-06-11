@@ -1,0 +1,30 @@
+﻿@model Streameo.Models.Search
+
+<p>Słuchaj swojej ulubionej muzyki już teraz...</p>
+<script type="text/javascript">
+    $(function () {
+        $("#SearchText").click(function () {
+            var val1 = $(this).val();
+            if (val1 == "wpisz nazwę artysty lub tytuł piosenki...")
+                $(this).val('');
+        });
+
+        $('#SearchText').blur(function () {
+            var val1 = $(this).val();
+            if (val1 == '')
+                $(this).val("wpisz nazwę artysty lub tytuł piosenki...");
+        });
+    });
+</script>
+
+@using (Ajax.BeginForm("Search", "Search", null, new AjaxOptions
+                        {
+                            HttpMethod = "Post",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "main"
+                        }, new { id = "search-form" }))
+{ 
+    <span class="smalltext">@Html.ValidationMessageFor(x => x.SearchText)</span>
+    @Html.EditorFor(x => x.SearchText)
+    <input type="submit" id="search-button" value="Szukaj" />
+}
