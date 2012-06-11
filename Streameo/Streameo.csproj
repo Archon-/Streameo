@@ -328,6 +328,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Disqus.cshtml" />
     <None Include="Content\fonts\Roboto-Black.ttf" />
     <None Include="Content\fonts\Roboto-BlackItalic.ttf" />
     <None Include="Content\fonts\Roboto-Bold.ttf" />
