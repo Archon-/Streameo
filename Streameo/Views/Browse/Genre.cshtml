@@ -5,7 +5,13 @@
 @if (User.IsInRole("Admin"))
 {
     <p>
-        @Html.ActionLink("Dodaj artystę", "CreateArtist",null, new { @class = "ajax"})
+        @Ajax.ActionLink("Dodaj artystę", "CreateArtist", "Browse", null, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null)
+        @*@Html.ActionLink("Dodaj artystę", "CreateArtist",null, new { @class = "ajax"})*@
     </p>
 }
 <table>
@@ -23,13 +29,29 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(@item.Name, "Artist", new { artist = @item.Name }, new { @class = "ajax" })
+                @*@Html.ActionLink(@item.Name, "Artist", new { artist = @item.Name }, new { @class = "ajax" })*@
+                @Ajax.ActionLink(@item.Name, "Artist", "Browse", new { artist = @item.Name }, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null)
             </td>
             @if (User.IsInRole("Admin"))
             {
                 <td>
-                    @Html.ActionLink("Edytuj", "EditArtist", new { id = @item.Id }, new { @class = "ajax" }) | 
-                    @Html.ActionLink("Usuń", "DeleteArtist", new { id = @item.Id }, new { @class = "ajax" })
+                    @Ajax.ActionLink("Edytuj", "EditArtist", "Browse", new { id = @item.Id }, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null) | 
+                       @Ajax.ActionLink("Usuń", "DeleteArtist", "Browse", new { id = @item.Id }, new AjaxOptions()
+                      {
+                          InsertionMode = InsertionMode.Replace,
+                          UpdateTargetId = "main",
+                          HttpMethod = "GET"
+                      }, null)
                 </td>
             }
         </tr>

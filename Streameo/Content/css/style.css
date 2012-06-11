@@ -810,7 +810,7 @@ td { vertical-align: top; }
 				border-radius: 10px;
 			}
 			
-				section#search #search-container #search-form input#search-text {
+				section#search #search-container #search-form input#SearchText {
 					margin: 0px;
 					width: 415px;
 					height: 40px;

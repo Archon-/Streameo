@@ -174,7 +174,6 @@ namespace Streameo.Models
                                 Name = artistName,
                                 Position = -1,
                                 PositionImg = "",
-                                Comments = new List<Comment>(),
                                 //NumberOfPlays = 0,
                                 Picture = picture,
                                 Albums = new List<Album>()

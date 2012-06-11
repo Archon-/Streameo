@@ -2,6 +2,22 @@
 @{
     ViewBag.Title = Model.Name;
 }
+
+
+<script type="text/javascript">
+$(document).on('ready',function () {
+    alert('0');
+    DISQUS.reset({
+        reload: true,
+        config: function () {
+            this.page.identifier = "myArticle";
+            this.page.url = 'http://localhost:1188/Browse/Artist/' + @Html.Raw(Json.Encode(Model.Id)) + '#!newthread';
+        }
+    });
+    });
+
+</script>
+
 <h2>
     @Html.DisplayFor(modelItem => Model.Name)
 </h2>
@@ -13,7 +29,13 @@
 @if (User.IsInRole("Admin"))
 {
     <p>
-        @Html.ActionLink("Dodaj album", "CreateAlbum", new { artist = Model.Name }, new { @class = "ajax" })
+        @Ajax.ActionLink("Dodaj album", "CreateAlbum", "Browse", new { artist = Model.Name }, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null)
+        @*@Html.ActionLink("Dodaj album", "CreateAlbum", new { artist = Model.Name }, new { @class = "ajax" })*@
     </p>
 }
 
@@ -32,13 +54,32 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item.Name, "Album", new { id = item.Id })
+            @Ajax.ActionLink(@item.Name, "Album", "Browse", new { id = item.Id }, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET",
+                           OnSuccess = "success"
+                       }, null)
+                @*@Html.ActionLink(item.Name, "Album", new { id = item.Id }, new { @class = "ajax" })*@
             </td>
             @if (User.IsInRole("Admin"))
             {
                 <td>
-                    @Html.ActionLink("Edytuj", "EditAlbum", new { id = @item.Id }, new { @class = "ajax" }) |
-                    @Html.ActionLink("Usuń", "DeleteAlbum", new { id = @item.Id }, new { @class = "ajax" })
+                    @Ajax.ActionLink("Edytuj", "EditAlbum", "Browse", new { id = item.Id }, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null) | 
+                    @Ajax.ActionLink("Usuń", "DeleteAlbum", "Browse", new { id = item.Id }, new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }, null)
+                    @*@Html.ActionLink("Edytuj", "EditAlbum", new { id = @item.Id }, new { @class = "ajax" }) |
+                    @Html.ActionLink("Usuń", "DeleteAlbum", new { id = @item.Id }, new { @class = "ajax" })*@
                 </td>
             }
         </tr>

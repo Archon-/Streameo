@@ -16,7 +16,6 @@ namespace Streameo.Models
         public string Title { get; set; }
         [Required(ErrorMessage = "To pole jest wymagane")]
         public string Genre { get; set; }
-        //public User AddedBy { get; set; }
         public DateTime AddDate { get; set; }
         public int NumberOfPlays { get; set; }
         public virtual List<Voting> Voters { get; set; }
@@ -50,7 +49,6 @@ namespace Streameo.Models
         public string Cover { get; set; }
         public int Position { get; set; }
         public string PositionImg { get; set; }
-        //public int NumberOfPlays { get; set; }
     }
 
     public class Artist
@@ -61,8 +59,6 @@ namespace Streameo.Models
         public virtual List<Album> Albums { get; set; }
         public int Position { get; set; }
         public string PositionImg { get; set; }
-        public virtual List<Comment> Comments { get; set; }
-        //public int NumberOfPlays { get; set; }
         public string Picture { get; set; }
     }
 
