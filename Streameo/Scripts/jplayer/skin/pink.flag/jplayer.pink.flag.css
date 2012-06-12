@@ -26,16 +26,16 @@ div.jp-video {
 	font-family:Verdana, Arial, sans-serif;
 	line-height:1.6;
 	color: #fff;
-	border-top:1px solid #554461;
+	/*border-top:1px solid #554461;
 	border-left:1px solid #554461;
 	border-right:1px solid #180a1f;
 	border-bottom:1px solid #180a1f;
-	background-color:#3a2a45;
+	background-color:#3a2a45;*/
 	position:relative;
 }
 div.jp-audio {
-	width:201px;
-	padding:20px;
+	width:100%;
+	/*padding:20px;*/
 }
 
 div.jp-video-270p {
@@ -78,13 +78,13 @@ div.jp-video-full div.jp-interface {
 div.jp-interface {
 	position: relative;
 	width:100%;
-	background-color:#3a2a45; /* Required for the full screen */
+	/*background-color:#3a2a45;*/ /* Required for the full screen */
 }
 
 
 div.jp-audio .jp-interface {
 	height: 80px;
-	padding-top:30px;
+	/*padding-top:30px;*/
 }
 
 /* @group CONTROLS */
@@ -98,7 +98,7 @@ div.jp-controls-holder {
 }
 
 div.jp-interface ul.jp-controls {
-	background: url("jplayer.pink.flag.jpg") 0 0 no-repeat;
+	/*background: url("jplayer.pink.flag.jpg") 0 0 no-repeat;*/
 	list-style-type:none;
 	padding: 1px 0 2px 1px;
 	overflow:hidden;
@@ -332,16 +332,17 @@ div.jp-video .jp-progress {
 
 .jp-seek-bar {
 	background: url("jplayer.pink.flag.jpg") 0px -260px repeat-x;
+	margin-top:13px;
+	height: 13px;
 	width:0px;
-	height: 100%;
 	overflow:hidden;
 	cursor:pointer;
 }
 
 .jp-play-bar {
 	background: url("jplayer.pink.flag.jpg") 0px -280px repeat-x;
+	height: 13px;
 	width:0px;
-	height: 100%;
 	overflow:hidden;
 }
 
@@ -405,9 +406,10 @@ div.jp-interface ul.jp-controls a.jp-volume-max:hover {
 .jp-volume-bar {
 	background: url("jplayer.pink.flag.jpg") 0px -300px repeat-x;
 	position: absolute;
-	width: 197px;
+	width: 300px;
 	height: 4px;
 	padding: 2px 2px 1px 2px;
+	margin-left: 250px;
 	overflow: hidden;
 }
 
