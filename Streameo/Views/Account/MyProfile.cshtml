@@ -3,5 +3,35 @@
 }
 
 <h2>Mój profil</h2>
+<br /><br />
+<span>Typ twojego konta: @{ if (ViewBag.AccountType)
+                            { 
+                                <text><strong>PREMIUM</strong> (konto ważne do: @ViewBag.EndDate)</text>
+                            }
+                            else
+                            {
+                                
+                                <text><strong>STANDARD</strong></text>
+                            }
+                                
+                                 } 
+                                 
+                                 <form action="@Streameo.Models.Dotpay.LinkToPay" method="post">
 
-<span>Typ twojego konta: @ViewBag.AccountType </span>
+<input type="hidden" name="kwota" value="@Streameo.Models.Premium.Amount" />
+<input type="hidden" name="opis" value="@Streameo.Models.Premium.Description" />
+<input type="hidden" name="control" value="@Streameo.Models.Premium.Control(User.Identity.Name)" />
+<button type="submit">Kup/przedłuż konto premium!</button>
+</form>
+    
+                                 
+                                 </span><br />
+                                 
+
+<span>Opcje: [ @Ajax.ActionLink("Zmień hasło", "ChangePassword", "Account", new AjaxOptions()
+                       {
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "main",
+                           HttpMethod = "GET"
+                       }) ]</span>
+<br /><br />

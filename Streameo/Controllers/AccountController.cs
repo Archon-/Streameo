@@ -336,13 +336,18 @@ namespace Streameo.Controllers
         public ActionResult MyProfile()
         {
             DatabaseContext db = new DatabaseContext();
-            var result = (from s in db.Users select s).ToList();
-
-            int I = 1;
+         
             var user = (from s in db.Users where s.Email == User.Identity.Name select s).First();
 
+            user.PremiumEnd = DateTime.Now + new TimeSpan(10, 10, 10, 10);
+            db.SaveChanges();
+
             ViewBag.AccountType = user.IsPremiumAccount();
-            
+
+            if (user.IsPremiumAccount())
+            {
+                ViewBag.EndDate = user.PremiumEnd.ToString();
+            }
             
             
             return View();
