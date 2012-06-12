@@ -47,6 +47,10 @@
       <HintPath>..\packages\Facebook.6.0.16\lib\net40-client\Facebook.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MvcPager1.5Mvc3en, Version=1.5.0.17426, Culture=neutral, PublicKeyToken=f6872c5a09aed72c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\MvcPager1.5Mvc3en.dll</HintPath>
+    </Reference>
     <Reference Include="NAudio">
       <HintPath>..\packages\NAudio.1.5\lib\NAudio.dll</HintPath>
     </Reference>
