@@ -332,8 +332,19 @@ namespace Streameo.Controllers
         }
         #endregion
 
+        [Authorize]
         public ActionResult MyProfile()
         {
+            DatabaseContext db = new DatabaseContext();
+            var result = (from s in db.Users select s).ToList();
+
+            int I = 1;
+            var user = (from s in db.Users where s.Email == User.Identity.Name select s).First();
+
+            ViewBag.AccountType = user.IsPremiumAccount();
+            
+            
+            
             return View();
         }
     }

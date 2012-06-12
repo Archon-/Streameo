@@ -1072,6 +1072,8 @@ td { vertical-align: top; }
 					background: #313131;
 				}
 				
+/* Artist */
+				
 		section#main #content #artist-site {
 			margin: 20px;
 			padding: 0px;
@@ -1122,6 +1124,102 @@ td { vertical-align: top; }
 							section#main #content .album-line .album-list ul li a:hover {
 								color: #000;
 							}
+							
+/* Genre */
+
+		section#main #content #genre-site {
+			margin: 20px;
+			padding: 0px;
+		}
+		
+			section#main #content #genre-site #artist-line {
+				width: 95%;
+				height: 200px;
+				padding: 20px 10px 10px 10px;
+				margin: 0px 0px 20px;
+				color: #fff;
+				font-size: 12px;
+				background-image: url('../images/taghead-gradient-repeaty.png');
+				background-position: 252px 0;
+				background-repeat: repeat-y;
+				overflow: hidden;
+				-background-image: none;
+				-background-repeat: no-repeat;
+				filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://cdn.lst.fm/flatness/tag/taghead-gradient-full500.png', sizingMethod='crop');
+			} 
+			
+				section#main #content #genre-site #artist-line h1 {
+					margin: 20px 0px 0px;
+					padding-left: 10px;
+					font-size: 34px;	
+					background-image: url('../images/black-transparent40.png');
+					-background-image: none;
+					filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/black-transparent40.png', sizingMethod='scale');
+				}
+				
+					section#main #content #genre-site #artist-line h1 a {
+						text-decoration: none;
+						color: #fff;
+					}
+				
+				section#main #content #genre-site #artist-line p {
+					padding: 10px;
+					background-image: url('../images/black-transparent40.png');
+					-background-image: none;
+					filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/black-transparent40.png', sizingMethod='scale');
+				}
+				
+			section#main #content #genre-site .genre-cd {
+				margin: 20px;
+				width: 200px;
+				height: 200px;
+				float: left;
+				position: relative;
+				box-shadow: gray 0.3em 0.3em 0.4em;
+			}
+			
+				section#main #content #genre-site .genre-cd p.artist {
+					position: absolute;
+					top: 152px;
+					left: 0px;
+					height: 20px;
+					width: 190px;
+					padding: 2px 5px;
+					font-size: 14px;
+					color: #fff;
+					font-weight: bold;
+					background-image: url('../images/black-transparent40.png');
+					-background-image: none;
+					filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/black-transparent40.png', sizingMethod='scale');
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+				
+				section#main #content #genre-site .genre-cd p.title {
+					position: absolute;
+					top: 176px;
+					left: 0px;
+					height: 20px;
+					width: 190px;
+					padding: 2px 5px;
+					font-size: 13px;
+					color: #fff;
+					font-weight: normal;
+					background-image: url('../images/black-transparent40.png');
+					-background-image: none;
+					filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/black-transparent40.png', sizingMethod='scale');
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+				
+					section#main #content #genre-site .genre-cd p a {
+						color: #fff;
+						text-decoration: none;
+					}
+		
+/* Login */
 							
 		section#main #login-contener {
 			margin: 30px auto;
